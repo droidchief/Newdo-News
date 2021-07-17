@@ -3,4 +3,6 @@
     <string name="search">Search</string>
     <string name="favourite">Favourite</string>
     <string name="article_image">article image</string>
+    <string name="feeds">Feeds</string>
+    <string name="mic">mic</string>
 </resources>

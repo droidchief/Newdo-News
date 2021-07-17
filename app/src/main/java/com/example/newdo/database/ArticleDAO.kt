@@ -5,15 +5,14 @@ import androidx.room.*
 import com.example.newdo.database.model.Article
 
 @Dao
-interface ArticleDAO  {
+interface ArticleDAO {
 
-     @Insert(onConflict = OnConflictStrategy.REPLACE)
-     suspend fun upsert(article: Article) : Long
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun upsert(article: Article): Long
 
-     @Query("SELECT * FROM articles")
-     fun getAllSavedArticles(): LiveData<List<Article>>
+    @Query("SELECT * FROM articles")
+    fun getAllFavouriteArticle(): LiveData<List<Article>>
 
-     @Delete
-     suspend fun deleteArticle(article: Article)
-
+    @Delete
+    fun deleteAllFavouriteArticle(article: Article)
 }
