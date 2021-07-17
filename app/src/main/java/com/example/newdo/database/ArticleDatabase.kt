@@ -11,7 +11,7 @@ import com.example.newdo.database.model.Article
     entities = [Article::class],
     version = 1
 )
-@TypeConverters(Converters::class )
+@TypeConverters(Converters::class)
 
 abstract class ArticleDatabase : RoomDatabase() {
 
