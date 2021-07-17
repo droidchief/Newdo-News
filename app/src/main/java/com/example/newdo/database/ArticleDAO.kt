@@ -2,7 +2,7 @@ package com.example.newdo.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.newdo.model.Article
+import com.example.newdo.database.model.Article
 
 @Dao
 interface ArticleDAO  {

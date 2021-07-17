@@ -1,6 +1,4 @@
-package com.example.newdo.model
-
-import com.example.newdo.model.Article
+package com.example.newdo.database.model
 
 data class NewsResponse(
     val articles: List<Article>,

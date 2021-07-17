@@ -1,4 +1,4 @@
-package com.example.newdo.model
+package com.example.newdo.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

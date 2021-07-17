@@ -1,6 +1,6 @@
 package com.example.newdo.api
 
-import com.example.newdo.model.NewsResponse
+import com.example.newdo.database.model.NewsResponse
 import com.example.newdo.utils.Constants.Companion.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET
