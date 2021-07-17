@@ -8,7 +8,7 @@ import com.example.newdo.model.Article
 interface ArticleDAO  {
 
      @Insert(onConflict = OnConflictStrategy.REPLACE)
-     suspend fun uosert(article: Article) : Long
+     suspend fun upsert(article: Article) : Long
 
      @Query("SELECT * FROM articles")
      fun getAllSavedArticles(): LiveData<List<Article>>
