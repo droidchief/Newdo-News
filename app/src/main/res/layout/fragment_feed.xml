@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.FeedsFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
@@ -18,17 +18,29 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/etSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:text="@string/feeds"
             android:textColor="@color/primary_purple"
             android:textSize="18sp"
             android:textStyle="bold" />
 
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_menu"
+            android:contentDescription="@string/menu"/>
 
-    </LinearLayout>
+
+
+    </RelativeLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
