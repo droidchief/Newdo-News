@@ -2,6 +2,7 @@ package com.example.newdo.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -49,7 +50,15 @@ class NewsAdapter(private val context: Context) :
         holder.binding.apply {
             val article = differ.currentList[position]
             holder.itemView.apply {
-                Glide.with(this).load(article.urlToImage).into(articleImage)
+
+                //check if article has image
+                if (article.urlToImage != null) {
+                    Glide.with(this).load(article.urlToImage).into(articleImage)
+                }else {
+                    //make image place holder invisible
+                    itemCard.visibility = View.GONE
+                }
+
                 title.text = article.title
                 description.text = article.description
                 source.text = article.source.name
