@@ -5,4 +5,5 @@
     <string name="article_image">article image</string>
     <string name="feeds">Feeds</string>
     <string name="mic">mic</string>
+    <string name="searching">Search...</string>
 </resources>
