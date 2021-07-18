@@ -9,6 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newdo.database.model.Article
 import com.example.newdo.databinding.ItemArticleBinding
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class NewsAdapter(private val context: Context) :
     RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
