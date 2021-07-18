@@ -25,7 +25,7 @@ class NewsAdapter(private val context: Context) :
         }
     }
 
-    private val differ = AsyncListDiffer(this, diffCallback)
+    val differ = AsyncListDiffer(this, diffCallback)
 
     override fun getItemCount(): Int {
         return differ.currentList.size
