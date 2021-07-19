@@ -1,6 +1,8 @@
 package com.example.newdo.ui.fragments
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.webkit.WebViewClient
 import android.widget.Toast
@@ -26,6 +28,19 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
 
         viewModel = (activity as MainActivity).viewModel
 
+        loadWebView(view)
+
+        binding.refreshLayout.setOnRefreshListener {
+            loadWebView(view)
+
+            Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                binding.refreshLayout.isRefreshing = false
+            }, 4000)
+        }
+
+    }
+
+    private fun loadWebView(view: View) {
         //get current article passed from previous page
         val article = args.article
 
