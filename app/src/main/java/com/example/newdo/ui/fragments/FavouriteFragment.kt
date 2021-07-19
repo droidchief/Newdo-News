@@ -40,6 +40,10 @@ class FavouriteFragment: Fragment(R.layout.fragment_favourite) {
             )
         }
 
+        //observes changes in database
+        viewModel.getSavedNews().observe(viewLifecycleOwner, Observer { articles ->
+            newsAdapter.differ.submitList(articles)
+        })
 
     }
 
