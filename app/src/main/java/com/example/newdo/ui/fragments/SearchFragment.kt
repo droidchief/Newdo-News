@@ -78,6 +78,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                         val totalPages =
                             newsResponse.totalResults / Constants.QUERY_PAGE_SIZE + 2 //last page of response is always empty and the integer division is always rounded off (+2)
                         isLastPage = viewModel.searchNewsCurrentPage == totalPages
+
+                        if (isLastPage) {
+                            binding.searchRecyclerView.setPadding(0,0,0,0)
+                        }
                     }
                 }
 
@@ -150,8 +154,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             if (paginate) {
                 viewModel.getSearchNews(binding.etSearch.text.toString())
                 isScrolling = false
-            } else {
-                binding.searchRecyclerView.setPadding(0, 0, 0, 0)
             }
         }
     }

@@ -73,6 +73,11 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
                         val totalPages =
                             newsResponse.totalResults / QUERY_PAGE_SIZE + 2 //last page of response is always empty and the integer division is always rounded off (+2)
                         isLastPage = viewModel.breakingNewsCurrentPage == totalPages
+
+                        if (isLastPage) {
+                            binding.feedsRecyclerView.setPadding(0,0,0,0)
+                        }
+
                     }
                 }
 
@@ -147,8 +152,6 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
             if (paginate) {
                 viewModel.getBreakingNews("us")
                 isScrolling = false
-            } else {
-                binding.feedsRecyclerView.setPadding(0, 0, 0, 0)
             }
         }
     }
