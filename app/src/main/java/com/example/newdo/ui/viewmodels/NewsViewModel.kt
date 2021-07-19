@@ -16,9 +16,11 @@ class NewsViewModel(
 
     val breakingNews: MutableLiveData<Resource<NewsResponse >> = MutableLiveData()
     var breakingNewsCurrentPage = 1
+    var breakingNewsResponse: NewsResponse? = null
 
     val searchNews: MutableLiveData<Resource<NewsResponse >> = MutableLiveData()
     var searchNewsCurrentPage = 1
+    var searchNewsResponse: NewsResponse? = null
 
     init {
         getBreakingNews("us")
@@ -43,7 +45,18 @@ class NewsViewModel(
     private fun handleBreakingNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
-                return Resource.Success(resultResponse)
+                //increase page number to get more articles
+                breakingNewsCurrentPage++
+                if (breakingNewsResponse == null) {
+                    breakingNewsResponse = resultResponse
+                }else {
+                    val oldArticles = breakingNewsResponse?.articles
+                    val newArticles = resultResponse.articles
+
+                    oldArticles?.addAll(newArticles)
+                }
+
+                return Resource.Success(breakingNewsResponse ?: resultResponse)
             }
         }
 
@@ -53,7 +66,18 @@ class NewsViewModel(
     private fun handleSearchNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
-                return Resource.Success(resultResponse)
+                //increase page number to get more articles
+                searchNewsCurrentPage++
+                if (searchNewsResponse == null) {
+                    searchNewsResponse = resultResponse
+                }else {
+                    val oldArticles = searchNewsResponse?.articles
+                    val newArticles = resultResponse.articles
+
+                    oldArticles?.addAll(newArticles)
+                }
+
+                return Resource.Success(searchNewsResponse ?: resultResponse)
             }
         }
 
