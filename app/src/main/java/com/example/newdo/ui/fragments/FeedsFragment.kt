@@ -1,6 +1,8 @@
 package com.example.newdo.ui.fragments
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -46,12 +48,25 @@ class FeedsFragment: Fragment(R.layout.fragment_feed) {
             )
         }
 
+        makeRequest()
+
+        binding.refreshLayout.setOnRefreshListener {
+            makeRequest()
+
+            Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                binding.refreshLayout.isRefreshing = false
+            }, 4000)
+        }
+
+    }
+
+    private fun makeRequest() {
         //observe changes and update view
         viewModel.breakingNews.observe(viewLifecycleOwner, Observer { response ->
             when(response) {
                 is Resource.Success -> {
                     hideProgressBar()
-                    response.data?.let { newsResponse ->  
+                    response.data?.let { newsResponse ->
                         newsAdapter.differ.submitList(newsResponse.articles)
                     }
                 }
