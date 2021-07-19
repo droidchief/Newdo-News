@@ -50,7 +50,9 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
         //setup web view
         binding.webView.apply {
             webViewClient = WebViewClient()
-            loadUrl(article.url)
+            if (article.url != null) {
+                loadUrl(article.url)
+            }
         }
 
         binding.saveArticleBtn.setOnClickListener {

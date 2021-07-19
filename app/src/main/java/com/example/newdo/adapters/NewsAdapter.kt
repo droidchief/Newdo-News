@@ -61,7 +61,7 @@ class NewsAdapter(private val context: Context) :
 
                 title.text = article.title
                 description.text = article.description
-                source.text = article.source.name
+                source.text = article.source?.name
                 timePublished.text = article.publishedAt
 
                 //add click event for articles
