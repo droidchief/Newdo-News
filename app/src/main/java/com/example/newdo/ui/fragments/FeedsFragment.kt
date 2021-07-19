@@ -70,7 +70,8 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
                     response.data?.let { newsResponse ->
                         newsAdapter.differ.submitList(newsResponse.articles.toList())
                         //set pagination
-                        val totalPages = newsResponse.totalResults / QUERY_PAGE_SIZE + 2 //last page of response is always empty and the integer division is always rounded off (+2)
+                        val totalPages =
+                            newsResponse.totalResults / QUERY_PAGE_SIZE + 2 //last page of response is always empty and the integer division is always rounded off (+2)
                         isLastPage = viewModel.breakingNewsCurrentPage == totalPages
                     }
                 }
@@ -82,7 +83,7 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
                 is Resource.Error -> {
                     hideProgressBar()
                     response.message?.let { message ->
-                        Log.e(TAG, "an error occured: $message")
+                        Log.e(TAG, "an error occur: $message")
                     }
                 }
             }
@@ -109,6 +110,9 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
             addOnScrollListener(this@FeedsFragment.scrollListener)
         }
     }
+
+
+
 
 
     var isLoading = false
@@ -143,8 +147,8 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
             if (paginate) {
                 viewModel.getBreakingNews("us")
                 isScrolling = false
-            }else {
-                binding.feedsRecyclerView.setPadding(0,0,0,0)
+            } else {
+                binding.feedsRecyclerView.setPadding(0, 0, 0, 0)
             }
         }
     }
