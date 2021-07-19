@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -43,6 +44,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.setupWithNavController(navController)
 
+        binding.feedsFab.setOnClickListener {
+            //feeds fragment (Home)
+        }
 
     }
 

@@ -3,6 +3,7 @@ package com.example.newdo.ui.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.newdo.database.model.Article
 import com.example.newdo.database.model.NewsResponse
 import com.example.newdo.repository.NewsRepository
 import com.example.newdo.utils.Resource
@@ -57,6 +58,16 @@ class NewsViewModel(
         }
 
         return Resource.Error(response.message())
+    }
+
+    fun saveArticle(article: Article) = viewModelScope.launch {
+        newsRepository.upsert(article)
+    }
+
+    fun getSavedNews() = newsRepository.getSavedArticle()
+
+    fun deleteArticle(article: Article) = viewModelScope.launch {
+        newsRepository.deleteArticle(article)
     }
 
 }

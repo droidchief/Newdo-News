@@ -1,8 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-kapt'
     id "androidx.navigation.safeargs.kotlin"
+    id "kotlin-kapt"
 }
 
 android {
@@ -79,4 +79,19 @@ dependencies {
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
+
+    //Circle image view
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //Dot loader
+    implementation 'com.agrawalsuneet.androidlibs:dotsloader:1.4'
+
+    //Alerter
+    implementation 'com.tapadoo.android:alerter:6.1.0'
+
+    //Facebook Shimmer Effect
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    //Material target prompt
+    implementation 'uk.co.samuelwall:material-tap-target-prompt:3.1.1'
 }

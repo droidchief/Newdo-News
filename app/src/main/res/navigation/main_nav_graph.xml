@@ -35,5 +35,9 @@
         android:id="@+id/articleFragment"
         android:name="com.example.newdo.ui.fragments.ArticleFragment"
         android:label="fragment_article"
-        tools:layout="@layout/fragment_article" />
+        tools:layout="@layout/fragment_article" >
+        <argument
+            android:name="article"
+            app:argType="com.example.newdo.database.model.Article" />
+    </fragment>
 </navigation>
