@@ -33,6 +33,24 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <com.agrawalsuneet.dotsloader.loaders.LazyLoader
+                android:id="@+id/paginationProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_centerInParent="true"
+                app:lazyloader_animDur="500"
+                android:layout_centerVertical="true"
+                app:lazyloader_dotsDist="5dp"
+                app:lazyloader_dotsRadius="3dp"
+                app:lazyloader_firstDelayDur="100"
+                app:lazyloader_firstDotColor="@color/primary_purple"
+                app:lazyloader_interpolator="@android:anim/decelerate_interpolator"
+                app:lazyloader_secondDelayDur="300"
+                app:lazyloader_secondDotColor="#23608A"
+                app:lazyloader_thirdDotColor="#FFB636" />
+
+
             <ImageView
                 android:id="@+id/menu"
                 android:layout_width="wrap_content"
@@ -59,18 +77,6 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolBar" />
-
-        <ProgressBar
-            android:id="@+id/paginationProgressBar"
-            style="?attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
