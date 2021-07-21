@@ -51,7 +51,7 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
         binding.webView.apply {
             webViewClient = WebViewClient()
             if (article.url != null) {
-                loadUrl(article.url)
+                loadUrl(article.url!!)
             }
         }
 
