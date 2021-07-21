@@ -87,6 +87,7 @@ class FavouriteFragment: Fragment(R.layout.fragment_favourite) {
         binding.favouriteRecyclerView.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)
+            setPadding(0,0,0,150)
         }
     }
 

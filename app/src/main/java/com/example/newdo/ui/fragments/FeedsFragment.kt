@@ -76,7 +76,7 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
                         isLastPage = viewModel.breakingNewsCurrentPage == totalPages
 
                         if (isLastPage) {
-                            binding.feedsRecyclerView.setPadding(0,0,0,0)
+                            binding.feedsRecyclerView.setPadding(0,0,0,150)
                         }
 
                     }
