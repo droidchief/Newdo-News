@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AbsListView
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -67,7 +68,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
         }
 
+        makeRequest()
 
+    }
+
+    private fun  makeRequest() {
         viewModel.searchNews.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
                 is Resource.Success -> {
@@ -92,13 +97,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 is Resource.Error -> {
                     hideProgressBar()
                     response.message?.let { message ->
-                        Log.e(TAG, "an error occured: $message")
+                        Toast.makeText(requireContext(), "An error occur: $message", Toast.LENGTH_LONG).show()
                     }
                 }
             }
 
         })
-
 
     }
 

@@ -6,6 +6,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.AbsListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -88,7 +89,7 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
                 is Resource.Error -> {
                     hideProgressBar()
                     response.message?.let { message ->
-                        Log.e(TAG, "an error occur: $message")
+                        Toast.makeText(requireContext(), "An error occur: $message", Toast.LENGTH_LONG).show()
                     }
                 }
             }
