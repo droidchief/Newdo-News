@@ -16,6 +16,7 @@ import com.example.newdo.repository.NewsRepository
 import com.example.newdo.utils.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.io.IOException
 
 class NewsViewModel(
     val app: Application,
@@ -36,18 +37,11 @@ class NewsViewModel(
 
     //call the function that gets breaking news from the repository
     fun getBreakingNews(country: String) = viewModelScope.launch {
-        breakingNews.postValue(Resource.Loading())
-        val response = newsRepository.getBreakingNews(country, breakingNewsCurrentPage)
-
-        breakingNews.postValue(handleBreakingNewsResponse(response))
-
+        breakingNewsSafeCall(country)
     }
 
     fun getSearchNews(searchQuery: String) = viewModelScope.launch {
-        searchNews.postValue(Resource.Loading())
-        val response = newsRepository.searchNews(searchQuery, searchNewsCurrentPage)
-
-        searchNews.postValue(handleSearchNewsResponse(response))
+        searchNewsSafeCall(searchQuery)
     }
 
     private fun handleBreakingNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
@@ -102,24 +96,64 @@ class NewsViewModel(
         newsRepository.deleteArticle(article)
     }
 
-    private fun checkInternetConnection(): Boolean {
+    //for safe request
+    private suspend fun breakingNewsSafeCall(country: String) {
+        breakingNews.postValue(Resource.Loading())
+        try {
+            if (hasInternet()) {
+                val response = newsRepository.getBreakingNews(country, breakingNewsCurrentPage)
+                breakingNews.postValue(handleBreakingNewsResponse(response))
+            }else {
+                 breakingNews.postValue(Resource.Error("Check internet connection"))
+            }
+
+        } catch (t: Throwable) {
+            when(t) {
+                is IOException -> breakingNews.postValue(Resource.Error("Network Failure"))
+
+                else -> breakingNews.postValue(Resource.Error("Conversion error "))//json failed to convert to kotlin class
+            }
+        }
+    }
+
+    private suspend fun searchNewsSafeCall(searchQuery: String) {
+        searchNews.postValue(Resource.Loading())
+        try {
+            if (hasInternet()) {
+                val response = newsRepository.searchNews(searchQuery, searchNewsCurrentPage)
+                searchNews.postValue(handleSearchNewsResponse(response))
+            }else {
+                 searchNews.postValue(Resource.Error("Check internet connection"))
+            }
+
+        } catch (t: Throwable) {
+            when(t) {
+                is IOException -> searchNews.postValue(Resource.Error("Network Failure"))
+
+                else -> searchNews.postValue(Resource.Error("Conversion error "))//json failed to convert to kotlin class
+            }
+        }
+    }
+
+    private fun hasInternet(): Boolean {
         val connectivityManager =
             getApplication<NewsApplication>().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val activeNetwork = connectivityManager.activeNetwork ?: return false
-            val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
+            val capabilities =
+                connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
 
             return when {
                 capabilities.hasTransport(TRANSPORT_WIFI) -> true
-                capabilities.hasTransport(TRANSPORT_CELLULAR) ->true
+                capabilities.hasTransport(TRANSPORT_CELLULAR) -> true
                 capabilities.hasTransport(TRANSPORT_ETHERNET) -> true
 
                 else -> false
             }
-        }else {
+        } else {
             connectivityManager.activeNetworkInfo?.run {
-                return when(type) {
+                return when (type) {
                     TYPE_WIFI -> true
                     TYPE_MOBILE -> true
                     TYPE_ETHERNET -> true
