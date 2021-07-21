@@ -19,13 +19,14 @@
             android:id="@+id/etSearch"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginStart="20dp"
-            android:background="@color/white"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
             android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
             android:layout_toStartOf="@id/voiceSearch"
+            android:background="@color/white"
             android:hint="@string/searching"
+            android:maxLines="1"
             android:paddingStart="15dp"
             android:paddingEnd="15dp" />
 
@@ -33,17 +34,17 @@
             android:id="@+id/paginationProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
             android:layout_centerInParent="true"
-            app:lazyloader_animDur="300"
-            android:visibility="invisible"
             android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:visibility="invisible"
+            app:lazyloader_animDur="500"
             app:lazyloader_dotsDist="5dp"
             app:lazyloader_dotsRadius="3dp"
-            app:lazyloader_firstDelayDur="50"
+            app:lazyloader_firstDelayDur="100"
             app:lazyloader_firstDotColor="@color/primary_purple"
             app:lazyloader_interpolator="@android:anim/decelerate_interpolator"
-            app:lazyloader_secondDelayDur="100"
+            app:lazyloader_secondDelayDur="300"
             app:lazyloader_secondDotColor="#23608A"
             app:lazyloader_thirdDotColor="#FFB636" />
 
@@ -55,8 +56,8 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="20dp"
-            android:src="@drawable/ic_mic"
-            android:contentDescription="@string/mic" />
+            android:contentDescription="@string/mic"
+            android:src="@drawable/ic_mic" />
 
 
     </RelativeLayout>

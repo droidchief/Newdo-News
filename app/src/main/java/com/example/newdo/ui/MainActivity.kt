@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.feedsFab.setOnClickListener {
             //feeds fragment (Home)
+
         }
 
     }

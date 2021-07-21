@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:fabCradleMargin="20dp"
+        app:fabCradleMargin="5dp"
         app:fabCradleRoundedCornerRadius="20dp"
         app:fabCradleVerticalOffset="10dp">
 
