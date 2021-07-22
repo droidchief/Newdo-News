@@ -37,10 +37,10 @@
                 android:id="@+id/paginationProgressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
                 android:layout_centerInParent="true"
-                app:lazyloader_animDur="500"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="5dp"
+                app:lazyloader_animDur="500"
                 app:lazyloader_dotsDist="5dp"
                 app:lazyloader_dotsRadius="3dp"
                 app:lazyloader_firstDelayDur="100"
@@ -71,12 +71,42 @@
             android:layout_height="0dp"
             android:clipToPadding="false"
             android:paddingTop="10dp"
-            android:paddingBottom="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/noInternetFeedbackLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolBar" />
+
+        <LinearLayout
+            android:id="@+id/noInternetFeedbackLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginBottom="100dp"
+            android:visibility="gone"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/noInternetFeedbackDes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginBottom="10dp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/noInternetFeedbackBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_refresh_24"
+                android:contentDescription="@string/refresh" />
+
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -8,4 +8,7 @@
     <string name="searching">Search...</string>
     <string name="menu">Menu</string>
     <string name="back">back</string>
+    <string name="no_internet">No Internet</string>
+    <string name="try_again">Try Again</string>
+    <string name="refresh">refresh</string>
 </resources>

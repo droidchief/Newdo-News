@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.widget.AbsListView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -97,14 +98,34 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 is Resource.Error -> {
                     hideProgressBar()
                     response.message?.let { message ->
-                        Toast.makeText(requireContext(), "An error occur: $message", Toast.LENGTH_LONG).show()
-                    }
+                        //show visual feedback for error messages
+                        if (message == "Check Internet Connection") {
+                            poorInternetFeedback(message)
+
+                        } else {
+                            poorInternetFeedback(message)
+
+                        }                    }
                 }
             }
 
         })
 
     }
+
+    private fun poorInternetFeedback(message: String) {
+        binding.noInternetFeedbackLayout.visibility = View.VISIBLE
+        binding.noInternetFeedbackDes.text = message
+
+        binding.noInternetFeedbackBtn.setOnClickListener {
+            //hide feedback
+            if (binding.noInternetFeedbackLayout.isVisible) {
+                binding.noInternetFeedbackLayout.visibility = View.GONE
+            }
+            makeRequest()
+        }
+    }
+
 
     private fun hideProgressBar() {
         binding.paginationProgressBar.visibility = View.INVISIBLE

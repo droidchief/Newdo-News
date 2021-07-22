@@ -104,14 +104,14 @@ class NewsViewModel(
                 val response = newsRepository.getBreakingNews(country, breakingNewsCurrentPage)
                 breakingNews.postValue(handleBreakingNewsResponse(response))
             }else {
-                 breakingNews.postValue(Resource.Error("Check internet connection"))
+                 breakingNews.postValue(Resource.Error("Check Internet Connection"))
             }
 
         } catch (t: Throwable) {
             when(t) {
                 is IOException -> breakingNews.postValue(Resource.Error("Network Failure"))
 
-                else -> breakingNews.postValue(Resource.Error("Conversion error "))//json failed to convert to kotlin class
+                else -> breakingNews.postValue(Resource.Error("Conversion Error "))//json failed to convert to kotlin class
             }
         }
     }
@@ -123,14 +123,14 @@ class NewsViewModel(
                 val response = newsRepository.searchNews(searchQuery, searchNewsCurrentPage)
                 searchNews.postValue(handleSearchNewsResponse(response))
             }else {
-                 searchNews.postValue(Resource.Error("Check internet connection"))
+                 searchNews.postValue(Resource.Error("Check Internet Connection"))
             }
 
         } catch (t: Throwable) {
             when(t) {
                 is IOException -> searchNews.postValue(Resource.Error("Network Failure"))
 
-                else -> searchNews.postValue(Resource.Error("Conversion error "))//json failed to convert to kotlin class
+                else -> searchNews.postValue(Resource.Error("Conversion Error "))//json failed to convert to kotlin class
             }
         }
     }
