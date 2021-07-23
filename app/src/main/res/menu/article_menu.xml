@@ -2,6 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/refresh"
+        android:icon="@drawable/favourite_icon_selector"
+        android:title="@string/refresh" />
+
+    <item
+        android:id="@+id/openInBrowser"
+        android:icon="@drawable/favourite_icon_selector"
+        android:title="@string/open_with" />
+
+    <item
         android:id="@+id/copyLink"
         android:icon="@drawable/search_icon_selector"
         android:title="@string/copy_link" />
@@ -10,5 +20,6 @@
         android:id="@+id/shareArticle"
         android:icon="@drawable/favourite_icon_selector"
         android:title="@string/share" />
+
 
 </menu>

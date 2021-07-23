@@ -10,7 +10,8 @@
     <string name="back">back</string>
     <string name="no_internet">No Internet</string>
     <string name="try_again">Try Again</string>
-    <string name="refresh">refresh</string>
+    <string name="refresh">Refresh</string>
     <string name="copy_link">Copy Link</string>
     <string name="share">Share</string>
+    <string name="open_with">Open with ...</string>
 </resources>

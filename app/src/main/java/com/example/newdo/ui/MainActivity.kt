@@ -49,7 +49,6 @@ class MainActivity : AppCompatActivity() {
             return@setOnItemReselectedListener
         }
 
-
     }
 
     private fun disableDarkMode() {
