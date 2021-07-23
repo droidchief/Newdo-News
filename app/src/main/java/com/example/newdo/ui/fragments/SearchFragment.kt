@@ -104,8 +104,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         if (requestCode == RQ_SPEECH_REC && resultCode == Activity.RESULT_OK) {
             val result = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-            //pass result to request
-            viewModel.getSearchNews(result?.get(0).toString())
+            //pass result to the search editText
+            val resultString = result?.get(0).toString()
+            binding.etSearch.setText(resultString)
         }
     }
 
