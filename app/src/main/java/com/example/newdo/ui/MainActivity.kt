@@ -1,6 +1,8 @@
 package com.example.newdo.ui
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
@@ -43,11 +45,10 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.findNavController()
 
         binding.bottomNavigationView.setupWithNavController(navController)
-
-        binding.feedsFab.setOnClickListener {
-            //feeds fragment (Home)
-
+        binding.bottomNavigationView.setOnItemReselectedListener {
+            return@setOnItemReselectedListener
         }
+
 
     }
 
@@ -59,7 +60,6 @@ class MainActivity : AppCompatActivity() {
         //fix bottom nav background
         binding.bottomNavigationView.background = null
         binding.bottomNavigationView.itemIconTintList = null
-        binding.feedsFab.imageTintList = null
     }
 
 }

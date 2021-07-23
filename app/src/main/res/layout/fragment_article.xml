@@ -31,9 +31,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/back"
-                    android:layout_width="50dp"
+                    android:layout_width="40dp"
+                    android:layout_marginStart="10dp"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
@@ -63,12 +65,24 @@
                 <ImageButton
                     android:id="@+id/saveArticleBtn"
                     style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="24dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@id/menuBtn"
+                    android:contentDescription="@string/menu"
+                    android:src="@drawable/save_icon_selector" />
+
+                <ImageButton
+                    android:id="@+id/menuBtn"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="24dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:contentDescription="@string/menu"
-                    android:src="@drawable/save_icon_selector" />
+                    android:src="@drawable/ic_baseline_more_vert_24" />
 
 
             </RelativeLayout>
