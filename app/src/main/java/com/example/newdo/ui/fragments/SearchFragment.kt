@@ -123,7 +123,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                         isLastPage = viewModel.searchNewsCurrentPage == totalPages
 
                         if (isLastPage) {
-                            binding.searchRecyclerView.setPadding(0, 0, 0, 150)
+                            binding.searchRecyclerView.setPadding(0, 0, 0, 0)
                         }
                     }
                 }
