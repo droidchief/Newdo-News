@@ -1,10 +1,12 @@
 package com.example.newdo.ui.fragments
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.view.View
 import android.widget.AbsListView
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -18,12 +20,14 @@ import com.example.newdo.databinding.FragmentSearchBinding
 import com.example.newdo.ui.MainActivity
 import com.example.newdo.ui.viewmodels.NewsViewModel
 import com.example.newdo.utils.Constants
-import com.example.newdo.utils.Constants.Companion.SEARCH_NEWS_TIME_DELAY
+import com.example.newdo.utils.Constants.Companion.RQ_SPEECH_REC
+import com.example.newdo.utils.Constants.Companion.SEARCH_NEWS_DELAY_TIME
 import com.example.newdo.utils.Resource
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.*
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
@@ -58,7 +62,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         binding.etSearch.addTextChangedListener { editable ->
             job?.cancel()
             job = MainScope().launch {
-                delay(SEARCH_NEWS_TIME_DELAY)
+                delay(SEARCH_NEWS_DELAY_TIME)
 
                 //make request
                 editable?.let {
@@ -69,11 +73,43 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
         }
 
+        //voice search
+        binding.voiceSearch.setOnClickListener {
+            voiceSearch()
+        }
+
         makeRequest()
 
     }
 
-    private fun  makeRequest() {
+    private fun voiceSearch() {
+        //check if device is capable of using voice recognition
+        if (!SpeechRecognizer.isRecognitionAvailable(requireContext())) {
+            //Voice Recognition not available
+        } else {
+            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            intent.putExtra(
+                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+            )
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Try saying something")
+            startActivityForResult(intent, RQ_SPEECH_REC)
+        }
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RQ_SPEECH_REC && resultCode == Activity.RESULT_OK) {
+            val result = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            //pass result to request
+            viewModel.getSearchNews(result?.get(0).toString())
+        }
+    }
+
+    private fun makeRequest() {
         viewModel.searchNews.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
                 is Resource.Success -> {
@@ -86,7 +122,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                         isLastPage = viewModel.searchNewsCurrentPage == totalPages
 
                         if (isLastPage) {
-                            binding.searchRecyclerView.setPadding(0,0,0,150)
+                            binding.searchRecyclerView.setPadding(0, 0, 0, 150)
                         }
                     }
                 }
@@ -105,7 +141,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                         } else {
                             poorInternetFeedback(message)
 
-                        }                    }
+                        }
+                    }
                 }
             }
 

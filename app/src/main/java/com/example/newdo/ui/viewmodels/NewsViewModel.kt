@@ -2,10 +2,14 @@ package com.example.newdo.ui.viewmodels
 
 import android.app.Application
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.*
 import android.net.NetworkCapabilities.*
 import android.os.Build
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -13,10 +17,13 @@ import com.example.newdo.application.NewsApplication
 import com.example.newdo.database.model.Article
 import com.example.newdo.database.model.NewsResponse
 import com.example.newdo.repository.NewsRepository
+import com.example.newdo.utils.Constants.Companion.RQ_SPEECH_REC
 import com.example.newdo.utils.Resource
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.io.IOException
+import java.util.*
 
 class NewsViewModel(
     val app: Application,
@@ -43,6 +50,7 @@ class NewsViewModel(
     fun getSearchNews(searchQuery: String) = viewModelScope.launch {
         searchNewsSafeCall(searchQuery)
     }
+
 
     private fun handleBreakingNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
         if (response.isSuccessful) {
