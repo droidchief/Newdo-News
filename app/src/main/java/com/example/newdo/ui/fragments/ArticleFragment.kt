@@ -1,5 +1,7 @@
 package com.example.newdo.ui.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -42,18 +44,19 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
         //popup menu
         binding.menuBtn.setOnClickListener {
             val popupMenu = PopupMenu(requireContext(), it)
+
             popupMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.refresh -> {
-
                         loadWebView(view)
 
                         true
                     }
 
                     R.id.openInBrowser -> {
-                        Toast.makeText(requireContext(), "Open in Browser", Toast.LENGTH_SHORT)
-                            .show()
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("${article.url}"))
+                        startActivity(intent)
+
                         true
                     }
 
