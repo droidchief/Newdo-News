@@ -11,6 +11,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
@@ -40,6 +41,9 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
 
         //get current article passed from previous page
         article = args.article
+
+        handleOnBackPressed()
+
 
         loadWebView(view)
 
@@ -85,6 +89,29 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
 
     }
 
+    private fun handleOnBackPressed() {
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+
+                    // Do custom work here
+                    if (binding.webView.canGoBack()) {
+                        binding.webView.goBack()
+                    } else {
+                        if (isEnabled) {
+                            isEnabled = false
+                            requireActivity().onBackPressed()
+                        }
+
+                    }
+
+                }
+            }
+            )
+
+    }
+
     private fun loadWebView(view: View) {
         //pass news detail
         Glide.with(this).load(article.urlToImage).into(binding.articleImage)
@@ -101,7 +128,7 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
                 loadUrl(article.url!!)
             }
 
-            webViewClient = object: WebViewClient() {
+            webViewClient = object : WebViewClient() {
                 override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                     //show loading progress
                     binding.progressIndicator.visibility = View.VISIBLE

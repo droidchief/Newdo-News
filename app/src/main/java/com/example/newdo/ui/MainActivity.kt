@@ -1,19 +1,17 @@
 package com.example.newdo.ui
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.newdo.R
 import com.example.newdo.database.ArticleDatabase
 import com.example.newdo.databinding.ActivityMainBinding
+import com.example.newdo.helperfile.IOnBackPressed
 import com.example.newdo.repository.NewsRepository
 import com.example.newdo.ui.viewmodels.NewsViewModel
 import com.example.newdo.ui.viewmodels.NewsViewModelProviderFactory
