@@ -78,6 +78,7 @@
         android:id="@+id/progressIndicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@+id/toolBar" />
 
 
@@ -87,6 +88,40 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressIndicator" />
+
+    <LinearLayout
+        android:id="@+id/noInternetFeedbackLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:padding="10dp"
+        app:layout_constraintTop_toTopOf="@id/webView"
+        app:layout_constraintStart_toStartOf="@id/webView"
+        app:layout_constraintEnd_toEndOf="@id/webView"
+        app:layout_constraintBottom_toBottomOf="@id/webView">
+
+        <TextView
+            android:id="@+id/noInternetFeedbackDes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/no_internet"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/noInternetFeedbackBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/disconnection"
+            android:contentDescription="@string/refresh" />
+
+    </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

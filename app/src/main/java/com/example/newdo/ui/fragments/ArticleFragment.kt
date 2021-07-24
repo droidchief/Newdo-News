@@ -1,10 +1,13 @@
 package com.example.newdo.ui.fragments
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.webkit.WebChromeClient
+import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -37,7 +40,6 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
 
         //get current article passed from previous page
         article = args.article
-
 
         loadWebView(view)
 
@@ -90,19 +92,37 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
 
         //setup web view
         binding.webView.apply {
+            val webSettings = settings
+            webSettings.javaScriptEnabled = true
             webViewClient = WebViewClient()
+            webChromeClient = WebChromeClient()
+
             if (article.url != null) {
                 loadUrl(article.url!!)
             }
-        }
 
-        //show loading progress
-        val progress = binding.webView.progress
+            webViewClient = object: WebViewClient() {
+                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                    //show loading progress
+                    binding.progressIndicator.visibility = View.VISIBLE
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            binding.progressIndicator.setProgress(progress, true)
-        } else {
-            binding.progressIndicator.progress = progress
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        binding.progressIndicator.setProgress(30, true)
+                    } else {
+                        binding.progressIndicator.progress = 30
+                    }
+
+                    super.onPageStarted(view, url, favicon)
+                }
+
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    binding.progressIndicator.progress = 100
+                    binding.progressIndicator.visibility = View.INVISIBLE
+                    super.onPageFinished(view, url)
+                }
+
+            }
+
         }
 
         binding.saveArticleBtn.setOnClickListener {
