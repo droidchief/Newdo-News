@@ -1,14 +1,12 @@
 package com.example.newdo.ui.fragments
 
-import android.content.Intent
-import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.webkit.WebViewClient
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -28,6 +26,7 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
 
     private lateinit var article: Article
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentArticleBinding.bind(view)
@@ -40,34 +39,30 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
 
         loadWebView(view)
 
-        binding.refreshLayout.setOnRefreshListener {
-            loadWebView(view)
-
-            Handler(Looper.getMainLooper()).postDelayed(Runnable {
-                binding.refreshLayout.isRefreshing = false
-            }, 4000)
-        }
-
         //popup menu
         binding.menuBtn.setOnClickListener {
             val popupMenu = PopupMenu(requireContext(), it)
             popupMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.refresh -> {
-                        Toast.makeText(requireContext(), "Refresh", Toast.LENGTH_SHORT)
-                            .show()
+
+                        loadWebView(view)
+
                         true
                     }
+
                     R.id.openInBrowser -> {
                         Toast.makeText(requireContext(), "Open in Browser", Toast.LENGTH_SHORT)
                             .show()
                         true
                     }
+
                     R.id.copyLink -> {
                         Toast.makeText(requireContext(), "Copy Link", Toast.LENGTH_SHORT)
                             .show()
                         true
                     }
+
                     R.id.shareArticle -> {
                         Toast.makeText(requireContext(), "Share", Toast.LENGTH_SHORT)
                             .show()
@@ -96,6 +91,15 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
             if (article.url != null) {
                 loadUrl(article.url!!)
             }
+        }
+
+        //show loading progress
+        val progress = binding.webView.progress
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            binding.progressIndicator.setProgress(progress, true)
+        } else {
+            binding.progressIndicator.progress = progress
         }
 
         binding.saveArticleBtn.setOnClickListener {
