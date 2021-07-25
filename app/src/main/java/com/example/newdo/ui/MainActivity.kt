@@ -1,5 +1,7 @@
 package com.example.newdo.ui
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
