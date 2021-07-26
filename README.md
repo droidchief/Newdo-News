@@ -11,5 +11,5 @@ https://newsapi.org/
 
 
 
-![Screenshot_1627299944](https://user-images.githubusercontent.com/56683410/126984669-2cd224c4-88c7-442d-bb49-c3261a44a90e.png)
+![Screenshot_1627299944](https://user-images.githubusercontent.com/56683410/126985557-ab81f3d7-4f29-46f9-9a18-d9aab7ea6e35.png)
 
