@@ -1,11 +1,11 @@
 package com.example.newdo.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.AbsListView
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -15,6 +15,7 @@ import com.example.newdo.R
 import com.example.newdo.adapters.NewsAdapter
 import com.example.newdo.databinding.FragmentFeedBinding
 import com.example.newdo.ui.MainActivity
+import com.example.newdo.ui.MenuActivity
 import com.example.newdo.ui.viewmodels.NewsViewModel
 import com.example.newdo.utils.Constants.Companion.QUERY_PAGE_SIZE
 import com.example.newdo.utils.Resource
@@ -33,6 +34,10 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
         binding = FragmentFeedBinding.bind(view)
 
         viewModel = (activity as MainActivity).viewModel
+
+        binding.menu.setOnClickListener {
+            startActivity(Intent(requireContext(), MenuActivity::class.java))
+        }
 
         //setup recycler view
         setUpRecyclerView()

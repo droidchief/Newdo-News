@@ -1,5 +1,6 @@
 package com.example.newdo.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -10,9 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newdo.R
 import com.example.newdo.adapters.NewsAdapter
-import com.example.newdo.databinding.FragmentArticleBinding
 import com.example.newdo.databinding.FragmentFavouriteBinding
 import com.example.newdo.ui.MainActivity
+import com.example.newdo.ui.MenuActivity
 import com.example.newdo.ui.viewmodels.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -28,6 +29,10 @@ class FavouriteFragment: Fragment(R.layout.fragment_favourite) {
         binding = FragmentFavouriteBinding.bind(view)
 
         viewModel = (activity as MainActivity).viewModel
+
+        binding.menu.setOnClickListener {
+            startActivity(Intent(requireContext(), MenuActivity::class.java))
+        }
 
         setUpRecyclerView() 
 
