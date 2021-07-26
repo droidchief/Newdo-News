@@ -120,7 +120,7 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
     private fun loadWebView(view: View) {
         //pass news detail
         Glide.with(this).load(article.urlToImage).into(binding.articleImage)
-        binding.author.text = "Author - ${article.author}"
+        if (article.author != null) binding.author.text = "Author - ${article.author}" else binding.author.text = "No Aurthor"
 
         //setup web view
         binding.webView.apply {
