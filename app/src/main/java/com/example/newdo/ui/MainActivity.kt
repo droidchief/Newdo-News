@@ -49,6 +49,10 @@ class MainActivity : AppCompatActivity() {
             return@setOnItemReselectedListener
         }
 
+        //feeds icon badge badge
+        val badge = binding.bottomNavigationView.getOrCreateBadge(R.id.feedsFragment)
+        badge.isVisible = true
+
     }
 
     private fun disableDarkMode() {
