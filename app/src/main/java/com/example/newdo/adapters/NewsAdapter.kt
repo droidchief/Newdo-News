@@ -92,7 +92,7 @@ class NewsAdapter(private val context: Context) :
                 when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                     Configuration.UI_MODE_NIGHT_NO -> {
                         itemCard.setBackgroundResource(R.drawable.article_card_bg)
-                    } // Night mode is not active
+                    } // Light mode is active
 
                     Configuration.UI_MODE_NIGHT_YES -> {
                         itemCard.setBackgroundResource(R.drawable.article_card_bg_dark)

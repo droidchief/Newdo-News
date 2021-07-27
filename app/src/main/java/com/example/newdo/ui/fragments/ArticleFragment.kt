@@ -4,11 +4,14 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebChromeClient
+import android.webkit.WebSettings.FORCE_DARK_OFF
+import android.webkit.WebSettings.FORCE_DARK_ON
 import android.webkit.WebViewClient
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -16,6 +19,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import androidx.webkit.WebSettingsCompat
+import androidx.webkit.WebViewFeature
 import com.bumptech.glide.Glide
 import com.example.newdo.R
 import com.example.newdo.database.model.Article
@@ -128,6 +133,22 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
             webSettings.javaScriptEnabled = true
             webViewClient = WebViewClient()
             webChromeClient = WebChromeClient()
+
+            when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                Configuration.UI_MODE_NIGHT_NO -> {
+                    if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
+                        WebSettingsCompat.setForceDark(webSettings, WebSettingsCompat.FORCE_DARK_OFF)
+                    }
+                } // Light mode is active
+
+                Configuration.UI_MODE_NIGHT_YES -> {
+                    if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
+                        WebSettingsCompat.setForceDark(webSettings, WebSettingsCompat.FORCE_DARK_ON)
+                    }
+                } // Night mode is active
+            }
+
+
 
             if (article.url != null) {
                 loadUrl(article.url!!)
