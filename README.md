@@ -8,6 +8,23 @@ The aim of this project is to show you how use best practices in Android. MVVM, 
 # API
 https://newsapi.org/
 
+# Features
+Dark Theme
+
+Reels
+
+Instagram story-like news
+
+Voice search
+
+Bookmark
+
+Share news article accross different apps
+
+Country filter
+
+
+
 
 
 
@@ -17,4 +34,4 @@ https://newsapi.org/
 
 ![Screenshot_1627300122](https://user-images.githubusercontent.com/56683410/126985834-8da2886c-2306-4e8f-907a-725b2cf5cd24.png)
 
-![Screenshot_1627300200](https://user-images.githubusercontent.com/56683410/126985877-5a9e6778-1135-4a43-b63a-abc982d3b3b3.png)
+![Screenshot_1627404505](https://user-images.githubusercontent.com/56683410/127195016-396f3257-f81e-47d8-bfbf-c91bf8075316.png)
