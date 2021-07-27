@@ -34,12 +34,17 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun itemClicks() {
         binding.settings.setOnClickListener(this)
+        binding.reels.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.settings -> {
                 startActivity(Intent(this, SettingsActivity::class.java))
+            }
+
+            R.id.reels -> {
+                startActivity(Intent(this, ReelsActivity::class.java))
             }
         }
     }
