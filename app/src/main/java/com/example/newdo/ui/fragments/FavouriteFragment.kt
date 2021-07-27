@@ -13,7 +13,7 @@ import com.example.newdo.R
 import com.example.newdo.adapters.NewsAdapter
 import com.example.newdo.databinding.FragmentFavouriteBinding
 import com.example.newdo.ui.MainActivity
-import com.example.newdo.ui.MenuActivity
+import com.example.newdo.ui.menu.MenuActivity
 import com.example.newdo.ui.viewmodels.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
 
