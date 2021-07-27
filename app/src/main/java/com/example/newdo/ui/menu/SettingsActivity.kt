@@ -56,13 +56,12 @@ class SettingsActivity : AppCompatActivity() {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                     delegate.applyDayNight()
                     binding.themeSwitch.isChecked = false
-                    Toast.makeText(this, "Theme: Light", Toast.LENGTH_SHORT).show()
                 }
+
                 1 -> {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                     delegate.applyDayNight()
                     binding.themeSwitch.isChecked = true
-                    Toast.makeText(this, "Theme: Dark", Toast.LENGTH_SHORT).show()
                 }
 
                 else -> {

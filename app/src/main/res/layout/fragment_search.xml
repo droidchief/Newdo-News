@@ -72,7 +72,6 @@
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:paddingTop="10dp"
-        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@+id/noInternetFeedbackLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

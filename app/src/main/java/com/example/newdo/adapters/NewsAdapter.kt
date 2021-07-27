@@ -1,15 +1,24 @@
 package com.example.newdo.adapters
 
+import android.app.Activity
 import android.content.Context
+import android.content.res.Configuration
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.newdo.R
 import com.example.newdo.database.model.Article
 import com.example.newdo.databinding.ItemArticleBinding
+import com.example.newdo.helperfile.ThemeManager
+import com.example.newdo.ui.MainActivity
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -17,6 +26,7 @@ import java.util.*
 
 class NewsAdapter(private val context: Context) :
     RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+
     inner class NewsViewHolder(val binding: ItemArticleBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -68,8 +78,29 @@ class NewsAdapter(private val context: Context) :
                 setOnClickListener {
                     onArticleClickListener?.let {it(article)}
                 }
+
+                //article card background
+                articleCardBackground(holder)
             }
         }
+    }
+
+    private fun articleCardBackground(holder: NewsViewHolder) {
+        holder.binding.apply {
+            holder.itemView.apply {
+
+                when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                    Configuration.UI_MODE_NIGHT_NO -> {
+                        itemCard.setBackgroundResource(R.drawable.article_card_bg)
+                    } // Night mode is not active
+
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        itemCard.setBackgroundResource(R.drawable.article_card_bg_dark)
+                    } // Night mode is active
+                }
+            }
+        }
+
     }
 
     private var onArticleClickListener: ((Article) -> Unit)? = null

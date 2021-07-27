@@ -2,7 +2,10 @@ package com.example.newdo.ui
 
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -78,10 +81,16 @@ class MainActivity : AppCompatActivity() {
                 0 -> {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                     delegate.applyDayNight()
+                    window.navigationBarColor = Color.WHITE
                 }
                 1 -> {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                     delegate.applyDayNight()
+
+                    //change icon to suite dark theme
+                    setDarkThemeAssets()
+                    window.navigationBarColor = Color.BLACK
+
                 }
 
                 else -> {
@@ -90,6 +99,15 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun setDarkThemeAssets() {
+        binding.bottomNavigationView.setBackgroundResource(R.drawable.bottom_nav_bg_dark)
+        binding.bottomNavigationView.menu.getItem(0).setIcon(R.drawable.home_icon_selector_dark)
+        binding.bottomNavigationView.menu.getItem(1).setIcon(R.drawable.search_icon_selector_dark)
+        binding.bottomNavigationView.menu.getItem(2).setIcon(R.drawable.favourite_icon_selector_dark)
+
+        binding.bottomDivider.setBackgroundResource(R.color.white_smoke)
     }
 
 

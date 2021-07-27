@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/ic_carbon_favorite_filled_dark" android:state_checked="true"/>
+    <item android:drawable="@drawable/ic_carbon_favorite_half_dark" android:state_checked="false"/>
+
+</selector>
