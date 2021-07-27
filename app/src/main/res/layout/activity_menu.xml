@@ -10,7 +10,6 @@
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +34,6 @@
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@id/back"
             android:text="@string/menu"
-            android:textColor="@color/primary_purple"
             android:textSize="18sp"
             android:textStyle="bold" />
 

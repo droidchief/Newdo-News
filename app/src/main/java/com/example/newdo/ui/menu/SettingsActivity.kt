@@ -19,14 +19,13 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //set theme
+        themeManager = ThemeManager(this)
+        observeAppTheme()
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //set theme
-        themeManager = ThemeManager(this)
         saveAppTheme()
-        observeAppTheme()
-
 
         binding.back.setOnClickListener {
             finish()

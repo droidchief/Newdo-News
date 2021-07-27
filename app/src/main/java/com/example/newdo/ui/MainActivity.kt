@@ -3,9 +3,11 @@ package com.example.newdo.ui
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -14,6 +16,7 @@ import com.example.newdo.R
 import com.example.newdo.database.ArticleDatabase
 import com.example.newdo.databinding.ActivityMainBinding
 import com.example.newdo.helperfile.IOnBackPressed
+import com.example.newdo.helperfile.ThemeManager
 import com.example.newdo.repository.NewsRepository
 import com.example.newdo.ui.viewmodels.NewsViewModel
 import com.example.newdo.ui.viewmodels.NewsViewModelProviderFactory
@@ -23,12 +26,20 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
+    private lateinit var themeManager: ThemeManager
+    var currentTheme = 0 //Light
+
     lateinit var viewModel: NewsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //set theme
+        themeManager = ThemeManager(this)
+        observeAppTheme()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
 
         //instantiate news repository
         val newsRepository = NewsRepository(ArticleDatabase(this))
@@ -59,5 +70,27 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.background = null
         binding.bottomNavigationView.itemIconTintList = null
     }
+
+    private fun observeAppTheme() {
+        themeManager.themeFlow.asLiveData().observe(this, {
+            currentTheme = it
+            when(currentTheme) {
+                0 -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    delegate.applyDayNight()
+                }
+                1 -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    delegate.applyDayNight()
+                }
+
+                else -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                    delegate.applyDayNight()
+                }
+            }
+        })
+    }
+
 
 }

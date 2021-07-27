@@ -26,10 +26,10 @@ class ThemeManager(context: Context) {
     val themeFlow: Flow<Int> = dataStore.data.map {
          val currentTheme = it[THEME_KEY] ?: 0
 
-        when(currentTheme) {
-            0 -> Toast.makeText(context, "Theme: Light", Toast.LENGTH_SHORT).show()
-            1 -> Toast.makeText(context, "Theme: Dark", Toast.LENGTH_SHORT).show()
-        }
+//        when(currentTheme) {
+//            0 -> Toast.makeText(context, "Theme: Light", Toast.LENGTH_SHORT).show()
+//            1 -> Toast.makeText(context, "Theme: Dark", Toast.LENGTH_SHORT).show()
+//        }
 
         currentTheme
     }
