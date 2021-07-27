@@ -17,8 +17,6 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        disableDarkMode()
-
         binding.back.setOnClickListener {
             finish()
         }
@@ -28,10 +26,6 @@ class MenuActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun itemClicks() {
         binding.settings.setOnClickListener(this)
-    }
-
-    private fun disableDarkMode() {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
     override fun onClick(v: View?) {

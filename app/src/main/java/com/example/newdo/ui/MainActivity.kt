@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this, viewModelProviderFactory).get(NewsViewModel::class.java)
 
-        disableDarkMode()
         bottomNavBackground()
 
         // setup bottom nav
@@ -53,10 +52,6 @@ class MainActivity : AppCompatActivity() {
         val badge = binding.bottomNavigationView.getOrCreateBadge(R.id.feedsFragment)
         badge.isVisible = true
 
-    }
-
-    private fun disableDarkMode() {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
     private fun bottomNavBackground() {
