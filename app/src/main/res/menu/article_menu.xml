@@ -21,5 +21,10 @@
         android:icon="@drawable/favourite_icon_selector"
         android:title="@string/share" />
 
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/favourite_icon_selector"
+        android:title="@string/settings" />
+
 
 </menu>

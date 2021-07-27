@@ -10,8 +10,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebChromeClient
-import android.webkit.WebSettings.FORCE_DARK_OFF
-import android.webkit.WebSettings.FORCE_DARK_ON
 import android.webkit.WebViewClient
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -26,6 +24,7 @@ import com.example.newdo.R
 import com.example.newdo.database.model.Article
 import com.example.newdo.databinding.FragmentArticleBinding
 import com.example.newdo.ui.MainActivity
+import com.example.newdo.ui.menu.SettingsActivity
 import com.example.newdo.ui.viewmodels.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -90,6 +89,12 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
                         true
                     }
 
+                    R.id.settings -> {
+                        startActivity(Intent(requireContext(), SettingsActivity::class.java))
+
+                        true
+                    }
+
                     else -> false
                 }
 
@@ -125,7 +130,8 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
     private fun loadWebView(view: View) {
         //pass news detail
         Glide.with(this).load(article.urlToImage).into(binding.articleImage)
-        if (article.author != null) binding.author.text = "Author - ${article.author}" else binding.author.text = "No Aurthor"
+        if (article.author != null) binding.author.text =
+            "Author - ${article.author}" else binding.author.text = "No Aurthor"
 
         //setup web view
         binding.webView.apply {
@@ -137,7 +143,10 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
             when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                 Configuration.UI_MODE_NIGHT_NO -> {
                     if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
-                        WebSettingsCompat.setForceDark(webSettings, WebSettingsCompat.FORCE_DARK_OFF)
+                        WebSettingsCompat.setForceDark(
+                            webSettings,
+                            WebSettingsCompat.FORCE_DARK_OFF
+                        )
                     }
                 } // Light mode is active
 
