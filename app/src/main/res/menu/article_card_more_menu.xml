@@ -4,7 +4,7 @@
     <item android:id="@+id/hideStory"
         android:title="@string/hide_story" />
 
-    <item android:id="@+id/downloadLink"
-        android:title="@string/download_link" />
+<!--    <item android:id="@+id/downloadLink"-->
+<!--        android:title="@string/download_link" />-->
 
 </menu>

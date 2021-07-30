@@ -24,6 +24,7 @@ import com.example.newdo.databinding.ItemArticleBinding
 import com.example.newdo.helperfile.ThemeManager
 import com.example.newdo.ui.MainActivity
 import com.example.newdo.ui.menu.SettingsActivity
+import com.example.newdo.ui.viewmodels.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -123,11 +124,11 @@ class NewsAdapter(private val context: Context) :
                             true
                         }
 
-                        R.id.downloadLink -> {
-                            Toast.makeText(context, "Downloading", Toast.LENGTH_SHORT).show()
-
-                            true
-                        }
+//                        R.id.downloadLink -> {
+//                            Toast.makeText(context, "Downloading", Toast.LENGTH_SHORT).show()
+//
+//                            true
+//                        }
 
                         else -> false
                     }
