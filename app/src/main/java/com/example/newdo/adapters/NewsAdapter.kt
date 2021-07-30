@@ -2,11 +2,14 @@ package com.example.newdo.adapters
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.asLiveData
@@ -19,6 +22,7 @@ import com.example.newdo.database.model.Article
 import com.example.newdo.databinding.ItemArticleBinding
 import com.example.newdo.helperfile.ThemeManager
 import com.example.newdo.ui.MainActivity
+import com.example.newdo.ui.menu.SettingsActivity
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -74,15 +78,54 @@ class NewsAdapter(private val context: Context) :
                 source.text = article.source?.name
                 timePublished.text = article.publishedAt
 
+
+                //article card background
+                articleCardBackground(holder)
+
                 //add click event for articles
                 setOnClickListener {
                     onArticleClickListener?.let {it(article)}
                 }
 
-                //article card background
-                articleCardBackground(holder)
+                setOnLongClickListener { view ->
+                    showPopupMenu(view)
+
+                    true
+                }
+
+                moreOption.setOnClickListener { view ->
+                    showPopupMenu(view)
+                }
             }
         }
+    }
+
+    private fun showPopupMenu(view: View) {
+
+        val popupMenu = PopupMenu(context, view)
+
+        popupMenu.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.hideStory -> {
+                    Toast.makeText(context, "Hidden", Toast.LENGTH_SHORT).show()
+
+                    true
+                }
+
+                R.id.downloadLink -> {
+                    Toast.makeText(context, "Downloading", Toast.LENGTH_SHORT).show()
+
+                    true
+                }
+
+                else -> false
+            }
+
+        }
+
+        popupMenu.inflate(R.menu.article_card_more_menu)
+        popupMenu.show()
+
     }
 
     private fun articleCardBackground(holder: NewsViewHolder) {

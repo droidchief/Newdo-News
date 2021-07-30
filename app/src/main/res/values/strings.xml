@@ -22,4 +22,6 @@
     <string name="help">Help</string>
     <string name="about">About</string>
     <string name="version">Version</string>
+    <string name="hide_story">Hide Story</string>
+    <string name="download_link">Download Link</string>
 </resources>

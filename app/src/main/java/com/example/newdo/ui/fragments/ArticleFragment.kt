@@ -49,9 +49,14 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
 
         handleOnBackPressed()
 
-
         loadWebView(view)
 
+        showPopupMenu(view)
+
+
+    }
+
+    private fun showPopupMenu(view: View) {
         //popup menu
         binding.menuBtn.setOnClickListener {
             val popupMenu = PopupMenu(requireContext(), it)
