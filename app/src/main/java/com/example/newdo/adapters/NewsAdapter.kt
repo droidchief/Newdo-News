@@ -9,6 +9,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
@@ -23,6 +24,7 @@ import com.example.newdo.databinding.ItemArticleBinding
 import com.example.newdo.helperfile.ThemeManager
 import com.example.newdo.ui.MainActivity
 import com.example.newdo.ui.menu.SettingsActivity
+import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -45,6 +47,7 @@ class NewsAdapter(private val context: Context) :
     }
 
     val differ = AsyncListDiffer(this, diffCallback)
+    private lateinit var article: Article
 
     override fun getItemCount(): Int {
         return differ.currentList.size
@@ -62,7 +65,7 @@ class NewsAdapter(private val context: Context) :
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         holder.binding.apply {
-            val article = differ.currentList[position]
+            article = differ.currentList[position]
             holder.itemView.apply {
 
                 //check if article has image
@@ -88,43 +91,55 @@ class NewsAdapter(private val context: Context) :
                 }
 
                 setOnLongClickListener { view ->
-                    showPopupMenu(view)
+                    showPopupMenu(view, holder)
 
                     true
                 }
 
                 moreOption.setOnClickListener { view ->
-                    showPopupMenu(view)
+                    showPopupMenu(view, holder)
                 }
             }
         }
     }
 
-    private fun showPopupMenu(view: View) {
+    private fun showPopupMenu(view: View, holder: NewsViewHolder) {
+        holder.binding.apply {
+            holder.itemView.apply {
 
-        val popupMenu = PopupMenu(context, view)
+                val popupMenu = PopupMenu(context, view)
 
-        popupMenu.setOnMenuItemClickListener { item ->
-            when (item.itemId) {
-                R.id.hideStory -> {
-                    Toast.makeText(context, "Hidden", Toast.LENGTH_SHORT).show()
+                popupMenu.setOnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        R.id.hideStory -> {
 
-                    true
+                            itemCard.visibility = View.GONE
+                            Snackbar.make(view, "Hidden Temporally", Snackbar.LENGTH_SHORT).apply {
+                                setAction("Undo"){
+                                    itemCard.visibility = View.VISIBLE
+                                }.show()
+                            }
+
+                            true
+                        }
+
+                        R.id.downloadLink -> {
+                            Toast.makeText(context, "Downloading", Toast.LENGTH_SHORT).show()
+
+                            true
+                        }
+
+                        else -> false
+                    }
+
                 }
 
-                R.id.downloadLink -> {
-                    Toast.makeText(context, "Downloading", Toast.LENGTH_SHORT).show()
+                popupMenu.inflate(R.menu.article_card_more_menu)
+                popupMenu.show()
 
-                    true
-                }
 
-                else -> false
             }
-
         }
-
-        popupMenu.inflate(R.menu.article_card_more_menu)
-        popupMenu.show()
 
     }
 
