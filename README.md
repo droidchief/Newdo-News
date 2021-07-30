@@ -11,17 +11,13 @@ https://newsapi.org/
 # Features
 *Dark Theme
 
-*Reels
-
-*Instagram story-like news
-
 *Voice search
 
 *Bookmark
 
 *Share news article accross different apps
 
-*Country filter
+*Country filter etc
 
 
 
