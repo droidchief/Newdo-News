@@ -17,17 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/back"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:contentDescription="@string/back"
-            android:src="@drawable/ic_baseline_keyboard_backspace_24" />
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/articleImage"
             android:layout_width="40dp"
@@ -35,8 +24,8 @@
             app:civ_border_color="#23608A"
             app:civ_border_width="1dp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/back" />
+            android:layout_marginStart="20dp"
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:id="@+id/author"
