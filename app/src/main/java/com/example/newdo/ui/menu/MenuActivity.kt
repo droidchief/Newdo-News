@@ -10,6 +10,10 @@ import com.example.newdo.R
 import com.example.newdo.databinding.ActivityMenuBinding
 import com.example.newdo.helperfile.ThemeManager
 
+/**
+ * @author Victor Loveday
+ */
+
 class MenuActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityMenuBinding

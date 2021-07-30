@@ -10,6 +10,10 @@ import com.example.newdo.helperfile.ThemeManager
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+/**
+ * @author Victor Loveday
+ */
+
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySettingsBinding

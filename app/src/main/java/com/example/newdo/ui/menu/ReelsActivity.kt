@@ -1,8 +1,12 @@
 package com.example.newdo.ui.menu
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.newdo.databinding.ActivityReelsBinding
+
+/**
+ * @author Victor Loveday
+ */
 
 class ReelsActivity : AppCompatActivity() {
 
@@ -13,8 +17,19 @@ class ReelsActivity : AppCompatActivity() {
         binding = ActivityReelsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.back.setOnClickListener{
+        binding.back.setOnClickListener {
             finish()
         }
+
     }
+
+    override fun onStart() {
+        super.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+    }
+
+
 }

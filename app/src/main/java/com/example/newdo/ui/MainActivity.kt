@@ -24,6 +24,10 @@ import com.example.newdo.repository.NewsRepository
 import com.example.newdo.ui.viewmodels.NewsViewModel
 import com.example.newdo.ui.viewmodels.NewsViewModelProviderFactory
 
+/**
+ * @author Victor Loveday
+ */
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
