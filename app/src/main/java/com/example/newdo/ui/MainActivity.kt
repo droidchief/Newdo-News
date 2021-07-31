@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setBackgroundResource(R.drawable.bottom_nav_bg_dark)
         binding.bottomNavigationView.menu.getItem(0).setIcon(R.drawable.home_icon_selector_dark)
         binding.bottomNavigationView.menu.getItem(1).setIcon(R.drawable.search_icon_selector_dark)
-        binding.bottomNavigationView.menu.getItem(2).setIcon(R.drawable.favourite_icon_selector_dark)
+        binding.bottomNavigationView.menu.getItem(2).setIcon(R.drawable.favourite_icon_selecto_dark)
 
         binding.bottomDivider.setBackgroundResource(R.color.white_smoke)
     }

@@ -1,6 +1,7 @@
 package com.example.newdo.ui.fragments
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.location.Location
 import android.os.Bundle
 import android.os.Handler
@@ -14,6 +15,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.webkit.WebSettingsCompat
+import androidx.webkit.WebViewFeature
 import com.example.newdo.R
 import com.example.newdo.adapters.CountriesAdapter
 import com.example.newdo.adapters.NewsAdapter
@@ -46,6 +49,8 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
         binding = FragmentFeedBinding.bind(view)
 
         viewModel = (activity as MainActivity).viewModel
+
+        observeDarkMode()
 
         binding.menu.setOnClickListener {
             startActivity(Intent(requireContext(), MenuActivity::class.java))
@@ -230,4 +235,17 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
             }
         }
     }
+
+    private fun observeDarkMode() {
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> {
+                binding.menu.setImageResource(R.drawable.ic_menu_dark)
+            } // Light mode is active
+
+            Configuration.UI_MODE_NIGHT_YES -> {
+                binding.menu.setImageResource(R.drawable.ic_menu_light)
+            } // Night mode is active
+        }
+    }
+
 }

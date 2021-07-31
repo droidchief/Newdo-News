@@ -49,15 +49,15 @@
                 app:lazyloader_thirdDotColor="#FFB636" />
 
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/menu"
-                android:layout_width="wrap_content"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="20dp"
-                android:contentDescription="@string/menu"
-                android:src="@drawable/ic_menu" />
+                android:src="@drawable/ic_menu_dark"
+                android:contentDescription="@string/menu"/>
 
 
         </RelativeLayout>

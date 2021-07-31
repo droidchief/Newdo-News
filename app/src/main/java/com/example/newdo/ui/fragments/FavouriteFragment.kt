@@ -1,6 +1,7 @@
 package com.example.newdo.ui.fragments
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -31,6 +32,8 @@ class FavouriteFragment: Fragment(R.layout.fragment_favourite) {
         binding = FragmentFavouriteBinding.bind(view)
 
         viewModel = (activity as MainActivity).viewModel
+
+        observeDarkMode()
 
         binding.menu.setOnClickListener {
             startActivity(Intent(requireContext(), MenuActivity::class.java))
@@ -102,6 +105,18 @@ class FavouriteFragment: Fragment(R.layout.fragment_favourite) {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)
             setPadding(0,0,0,0)
+        }
+    }
+
+    private fun observeDarkMode() {
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> {
+                binding.menu.setImageResource(R.drawable.ic_menu_dark)
+            } // Light mode is active
+
+            Configuration.UI_MODE_NIGHT_YES -> {
+                binding.menu.setImageResource(R.drawable.ic_menu_light)
+            } // Night mode is active
         }
     }
 
