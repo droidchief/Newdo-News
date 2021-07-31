@@ -5,11 +5,13 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebChromeClient
+import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -37,7 +39,6 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
 
     private lateinit var article: Article
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentArticleBinding.bind(view)
@@ -153,27 +154,27 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
             }
 
             //bug causing crash: NullPointerException
-//            webViewClient = object : WebViewClient() {
-//                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-//                    //show loading progress
-//                    binding.progressIndicator.visibility = View.VISIBLE
-//
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                        binding.progressIndicator.setProgress(30, true)
-//                    } else {
-//                        binding.progressIndicator.progress = 30
-//                    }
-//
-//                    super.onPageStarted(view, url, favicon)
-//                }
-//
-//                override fun onPageFinished(view: WebView?, url: String?) {
-//                    binding.progressIndicator.progress = 100
-//                    binding.progressIndicator.visibility = View.INVISIBLE
-//                    super.onPageFinished(view, url)
-//                }
-//
-//            }
+            webViewClient = object : WebViewClient() {
+                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                    //show loading progress
+                    binding.progressIndicator.visibility = View.VISIBLE
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        binding.progressIndicator.setProgress(30, true)
+                    } else {
+                        binding.progressIndicator.progress = 30
+                    }
+
+                    super.onPageStarted(view, url, favicon)
+                }
+
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    binding.progressIndicator.progress = 100
+                    binding.progressIndicator.visibility = View.INVISIBLE
+                    super.onPageFinished(view, url)
+                }
+
+            }
 
         }
 
