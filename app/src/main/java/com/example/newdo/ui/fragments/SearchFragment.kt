@@ -2,6 +2,7 @@ package com.example.newdo.ui.fragments
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
@@ -43,6 +44,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         binding = FragmentSearchBinding.bind(view)
 
         viewModel = (activity as MainActivity).viewModel
+
+        observeDarkMode()
+
         setUpRecyclerView()
 
         //pass data to the article page
@@ -220,4 +224,20 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
         }
     }
+
+    private fun observeDarkMode() {
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> {
+                binding.toolBar.setBackgroundResource(R.drawable.et_search_bg)
+                binding.voiceSearch.setImageResource(R.drawable.ic_mic)
+            } // Light mode is active
+
+            Configuration.UI_MODE_NIGHT_YES -> {
+                binding.toolBar.setBackgroundResource(R.drawable.et_search_bg_dark)
+                binding.voiceSearch.setImageResource(R.drawable.ic_mic_dark)
+
+            } // Night mode is active
+        }
+    }
+
 }
