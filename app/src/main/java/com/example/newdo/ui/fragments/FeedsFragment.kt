@@ -2,6 +2,7 @@ package com.example.newdo.ui.fragments
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.os.Handler
@@ -240,6 +241,7 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
         when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
             Configuration.UI_MODE_NIGHT_NO -> {
                 binding.menu.setImageResource(R.drawable.ic_menu_dark)
+                binding.pageTitle.setTextColor(Color.parseColor("#131313"))
             } // Light mode is active
 
             Configuration.UI_MODE_NIGHT_YES -> {
