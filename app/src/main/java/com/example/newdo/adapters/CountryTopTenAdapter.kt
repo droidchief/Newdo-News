@@ -1,41 +1,24 @@
 package com.example.newdo.adapters
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Color
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.PopupMenu
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newdo.R
 import com.example.newdo.database.model.Article
-import com.example.newdo.databinding.ItemArticleBinding
 import com.example.newdo.databinding.ItemCountryTopTenBinding
-import com.example.newdo.helperfile.ThemeManager
-import com.example.newdo.ui.MainActivity
-import com.example.newdo.ui.menu.SettingsActivity
-import com.example.newdo.ui.viewmodels.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.*
 
-class NewsAdapter(private val context: Context) :
-    RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class CountryTopTenAdapter(private val context: Context) :
+    RecyclerView.Adapter<CountryTopTenAdapter.NewsViewHolder>() {
 
-    inner class NewsViewHolder(val binding: ItemArticleBinding) :
+    inner class NewsViewHolder(val binding: ItemCountryTopTenBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     private val diffCallback = object : DiffUtil.ItemCallback<Article>() {
@@ -57,7 +40,7 @@ class NewsAdapter(private val context: Context) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         return NewsViewHolder(
-            ItemArticleBinding.inflate(
+            ItemCountryTopTenBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -169,3 +152,4 @@ class NewsAdapter(private val context: Context) :
         onArticleClickListener = listener
     }
 }
+

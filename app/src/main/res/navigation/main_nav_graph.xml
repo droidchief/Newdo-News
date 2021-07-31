@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_feedsFragment_to_articleFragment"
             app:destination="@id/articleFragment" />
+        <action
+            android:id="@+id/action_feedsFragment_to_countryTopTenFragment"
+            app:destination="@id/countryTopTenFragment" />
     </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
@@ -40,4 +43,9 @@
             android:name="article"
             app:argType="com.example.newdo.database.model.Article" />
     </fragment>
+    <fragment
+        android:id="@+id/countryTopTenFragment"
+        android:name="com.example.newdo.ui.fragments.CountryTopTenFragment"
+        android:label="fragment_country_top_ten"
+        tools:layout="@layout/fragment_country_top_ten" />
 </navigation>

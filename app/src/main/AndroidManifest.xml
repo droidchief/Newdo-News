@@ -14,6 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Newdo">
+        <activity android:name=".ui.CountryTopTen"></activity>
+        <activity android:name=".ui.CountryTopNews" />
         <activity android:name=".ui.menu.ReelsActivity" />
         <activity android:name=".ui.menu.SettingsActivity" />
         <activity android:name=".ui.menu.MenuActivity" />

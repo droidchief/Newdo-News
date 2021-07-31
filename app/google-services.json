@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "108828203044",
+    "project_id": "newdo-3ab53",
+    "storage_bucket": "newdo-3ab53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108828203044:android:24eda0a8a720bccd50e0b1",
+        "android_client_info": {
+          "package_name": "com.example.newdo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "108828203044-draqv1lfsppsp2lqggguj0iq79miktr8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfEr2H0cDhBsRVP5JVulMIzbg9tVykaAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "108828203044-draqv1lfsppsp2lqggguj0iq79miktr8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
