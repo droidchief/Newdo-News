@@ -10,9 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newdo.R
 import com.example.newdo.adapters.CountryTopTenAdapter
+import com.example.newdo.customview.CenterZoomLayout
 import com.example.newdo.databinding.FragmentCountryTopTenBinding
 import com.example.newdo.ui.MainActivity
 import com.example.newdo.ui.viewmodels.NewsViewModel
@@ -127,10 +129,22 @@ class CountryTopTenFragment : Fragment(R.layout.fragment_country_top_ten) {
     }
 
     private fun setUpRecyclerView() {
+        val contentZoomLayoutManager = CenterZoomLayout(requireContext()).apply {
+            orientation = LinearLayoutManager.HORIZONTAL
+            reverseLayout = true
+            stackFromEnd = true
+        }
+
         newsAdapter = CountryTopTenAdapter(requireContext())
         binding.discoverRecyclerView.apply {
             adapter = newsAdapter
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = contentZoomLayoutManager
+
+            //set view to center automatically
+            val snapHelper = LinearSnapHelper()
+            snapHelper.attachToRecyclerView(this)
+            isNestedScrollingEnabled = false
+
 
             addOnScrollListener(this@CountryTopTenFragment.scrollListener)
         }
