@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-
         //instantiate news repository
         val newsRepository = NewsRepository(ArticleDatabase(this))
         val viewModelProviderFactory = NewsViewModelProviderFactory(application, newsRepository)
