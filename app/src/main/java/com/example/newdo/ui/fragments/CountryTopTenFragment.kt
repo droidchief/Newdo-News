@@ -35,8 +35,6 @@ class CountryTopTenFragment : Fragment(R.layout.fragment_country_top_ten) {
     val args: CountryTopTenFragmentArgs by navArgs()
     private lateinit var countryCode: String
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCountryTopTenBinding.bind(view)
@@ -45,6 +43,9 @@ class CountryTopTenFragment : Fragment(R.layout.fragment_country_top_ten) {
 
         //get current country passed from previous page
         countryCode = args.country
+
+        binding.countryCodeTxt.text = countryCode
+
 
         //setup recycler view
         setUpRecyclerView()

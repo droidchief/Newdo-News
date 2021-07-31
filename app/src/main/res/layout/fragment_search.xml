@@ -85,7 +85,7 @@
         android:clipToPadding="false"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="20dp"
         android:visibility="gone"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent">

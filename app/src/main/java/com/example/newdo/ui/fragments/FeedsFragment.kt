@@ -1,11 +1,13 @@
 package com.example.newdo.ui.fragments
 
 import android.content.Intent
+import android.location.Location
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.AbsListView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -22,6 +24,8 @@ import com.example.newdo.ui.menu.MenuActivity
 import com.example.newdo.ui.viewmodels.NewsViewModel
 import com.example.newdo.utils.Constants.Companion.QUERY_PAGE_SIZE
 import com.example.newdo.utils.Resource
+import java.util.*
+import kotlin.collections.ArrayList
 
 class FeedsFragment : Fragment(R.layout.fragment_feed) {
 
@@ -31,6 +35,8 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
     lateinit var newsAdapter: NewsAdapter
     lateinit var countryAdapter: CountriesAdapter
     private lateinit var myModelList: ArrayList<Country>
+
+    lateinit var currentLocation: Location
 
 
     val TAG = "FeedsFragment"
@@ -94,16 +100,16 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
             myModelList = ArrayList()
 
             //add items
-            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria", "ng"))
-            myModelList.add(Country(R.drawable.ic_launcher_background, "United States", "us"))
-            myModelList.add(Country(R.drawable.ic_launcher_background, "Argentina", "ar"))
-            myModelList.add(Country(R.drawable.ic_launcher_background, "Greece", "gr"))
-            myModelList.add(Country(R.drawable.ic_launcher_background, "Netherlands", "nl"))
-            myModelList.add(Country(R.drawable.ic_launcher_background, "South Africa", "za"))
-            myModelList.add(Country(R.drawable.ic_launcher_background, "Austrailia", "au"))
-            myModelList.add(Country(R.drawable.ic_launcher_background, "Honk Kong", "hk"))
-            myModelList.add(Country(R.drawable.ic_launcher_background, "New Zealand", "nz"))
-            myModelList.add(Country(R.drawable.ic_launcher_background, "South Korea", "kr"))
+            myModelList.add(Country(R.drawable.ic_nigeria, "Nigeria", "ng"))
+            myModelList.add(Country(R.drawable.ic_united_states, "United States", "us"))
+            myModelList.add(Country(R.drawable.ic_argentina, "Argentina", "ar"))
+            myModelList.add(Country(R.drawable.ic_greece, "Greece", "gr"))
+            myModelList.add(Country(R.drawable.ic_netherlands, "Netherlands", "nl"))
+            myModelList.add(Country(R.drawable.ic_south_africa, "South Africa", "za"))
+            myModelList.add(Country(R.drawable.ic_austrailia, "Australia", "au"))
+            myModelList.add(Country(R.drawable.ic_hong_kong, "Honk Kong", "hk"))
+            myModelList.add(Country(R.drawable.ic_new_zealand, "New Zealand", "nz"))
+            myModelList.add(Country(R.drawable.ic_south_korea, "South Korea", "kr"))
 
 
             countryAdapter.countries = myModelList

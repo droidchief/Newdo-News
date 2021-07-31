@@ -31,6 +31,17 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/countryCodeTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
             <com.agrawalsuneet.dotsloader.loaders.LazyLoader
                 android:id="@+id/paginationProgressBar"
                 android:layout_width="wrap_content"
