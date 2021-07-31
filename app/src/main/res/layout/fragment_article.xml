@@ -22,7 +22,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             app:civ_border_color="#23608A"
-            app:civ_border_width="1dp"
+            app:civ_border_width="0.5dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
             android:layout_alignParentStart="true" />

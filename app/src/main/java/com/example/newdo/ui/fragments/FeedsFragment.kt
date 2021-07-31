@@ -13,7 +13,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newdo.R
+import com.example.newdo.adapters.CountriesAdapter
 import com.example.newdo.adapters.NewsAdapter
+import com.example.newdo.database.model.Country
 import com.example.newdo.databinding.FragmentFeedBinding
 import com.example.newdo.ui.MainActivity
 import com.example.newdo.ui.menu.MenuActivity
@@ -27,6 +29,9 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
 
     lateinit var viewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
+    lateinit var countryAdapter: CountriesAdapter
+    private lateinit var myModelList: ArrayList<Country>
+
 
     val TAG = "FeedsFragment"
 
@@ -40,8 +45,9 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
             startActivity(Intent(requireContext(), MenuActivity::class.java))
         }
 
-        //setup recycler view
+        //setup recycler views
         setUpRecyclerView()
+        setUpCountryRecyclerView()
 
         //pass data to the article page
         newsAdapter.setOnArticleClickListener { clickedArticle ->
@@ -66,6 +72,34 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
         }
 
     }
+
+    private fun setUpCountryRecyclerView() {
+        binding.countryListRecyclerView.apply {
+            countryAdapter = CountriesAdapter(requireContext())
+            adapter = countryAdapter
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+            //init list
+            myModelList = ArrayList()
+
+            //add items
+            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria"))
+            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria"))
+            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria"))
+            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria"))
+            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria"))
+            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria"))
+            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria"))
+            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria"))
+            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria"))
+            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria"))
+
+
+            countryAdapter.countries = myModelList
+        }
+
+    }
+
 
     private fun makeRequest() {
         //observe changes and update view

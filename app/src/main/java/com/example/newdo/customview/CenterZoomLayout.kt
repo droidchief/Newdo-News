@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.abs
-import kotlin.math.min
 
 class CenterZoomLayout : LinearLayoutManager {
 
@@ -23,8 +22,8 @@ class CenterZoomLayout : LinearLayoutManager {
         recycler: RecyclerView.Recycler?,
         state: RecyclerView.State?
     ): Int {
-        val orientaion = orientation
-        if (orientaion == HORIZONTAL) {
+        val orientation = orientation
+        if (orientation == HORIZONTAL) {
             val scrolled = super.scrollHorizontallyBy(dx, recycler, state)
 
             val midPoint = width/2F
