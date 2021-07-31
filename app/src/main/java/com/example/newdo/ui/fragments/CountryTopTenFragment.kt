@@ -45,7 +45,7 @@ class CountryTopTenFragment : Fragment(R.layout.fragment_country_top_ten) {
             }
 
             findNavController().navigate(
-                R.id.action_feedsFragment_to_articleFragment,
+                R.id.action_countryTopTenFragment_to_articleFragment,
                 bundle
             )
         }

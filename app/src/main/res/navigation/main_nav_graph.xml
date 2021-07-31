@@ -47,5 +47,9 @@
         android:id="@+id/countryTopTenFragment"
         android:name="com.example.newdo.ui.fragments.CountryTopTenFragment"
         android:label="fragment_country_top_ten"
-        tools:layout="@layout/fragment_country_top_ten" />
+        tools:layout="@layout/fragment_country_top_ten" >
+        <action
+            android:id="@+id/action_countryTopTenFragment_to_articleFragment"
+            app:destination="@id/articleFragment" />
+    </fragment>
 </navigation>
