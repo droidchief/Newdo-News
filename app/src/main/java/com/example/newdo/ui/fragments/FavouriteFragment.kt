@@ -3,12 +3,14 @@ package com.example.newdo.ui.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.newdo.R
 import com.example.newdo.adapters.NewsAdapter
 import com.example.newdo.databinding.FragmentFavouriteBinding
@@ -82,6 +84,13 @@ class FavouriteFragment: Fragment(R.layout.fragment_favourite) {
 
         //observes changes in database
         viewModel.getSavedNews().observe(viewLifecycleOwner, Observer { articles ->
+            if (articles.isEmpty()) {
+                binding.emptyFavouriteLayout.visibility = View.VISIBLE
+                Glide.with(requireContext()).load(R.drawable.rocket).into(binding.emptyFavouriteGif)
+            }else {
+                binding.emptyFavouriteLayout.visibility = View.GONE
+            }
+
             newsAdapter.differ.submitList(articles)
         })
 

@@ -7,9 +7,11 @@ import android.net.ConnectivityManager.*
 import android.net.NetworkCapabilities.*
 import android.os.Build
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.newdo.application.NewsApplication
+import com.example.newdo.database.ArticleDatabase
 import com.example.newdo.database.model.Article
 import com.example.newdo.database.model.NewsResponse
 import com.example.newdo.repository.NewsRepository
@@ -17,6 +19,7 @@ import com.example.newdo.utils.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.io.IOException
+
 
 class NewsViewModel(
     val app: Application,

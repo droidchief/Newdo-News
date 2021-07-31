@@ -25,4 +25,6 @@
     <string name="hide_story">Hide Story</string>
     <string name="download_link">Download Link</string>
     <string name="discover">Discover</string>
+    <string name="empty">Empty</string>
+    <string name="how_to_save">Tap the ❤️ icon wherever you see it to save your favourite story</string>
 </resources>
