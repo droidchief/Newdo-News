@@ -51,5 +51,8 @@
         <action
             android:id="@+id/action_countryTopTenFragment_to_articleFragment"
             app:destination="@id/articleFragment" />
+        <argument
+            android:name="country"
+            app:argType="string" />
     </fragment>
 </navigation>

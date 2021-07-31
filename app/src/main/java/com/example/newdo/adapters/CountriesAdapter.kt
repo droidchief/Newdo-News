@@ -58,11 +58,11 @@ class CountriesAdapter(private val context: Context) :
                 countryName.text = country.countryName
 
                 //article card background
-                articleCardBackground(holder)
+//                articleCardBackground(holder)
 
                 //add click event for articles
                 setOnClickListener {
-                    onCountryClickListener?.let { it(country) }
+                    onCountryClickListener?.let { it(country.countryCode) }
                 }
 
 
@@ -89,9 +89,9 @@ class CountriesAdapter(private val context: Context) :
 
     }
 
-    private var onCountryClickListener: ((Country) -> Unit)? = null
+    private var onCountryClickListener: ((String) -> Unit)? = null
 
-    fun setOnCountryListener(listener: (Country) -> Unit) {
+    fun setOnCountryClickListener(listener: (String) -> Unit) {
         onCountryClickListener = listener
     }
 }

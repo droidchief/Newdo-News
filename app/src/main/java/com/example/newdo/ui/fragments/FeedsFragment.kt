@@ -50,6 +50,17 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
         setUpCountryRecyclerView()
 
         //pass data to the article page
+        countryAdapter.setOnCountryClickListener { countryCode ->
+            val bundle = Bundle().apply {
+                putString("country", countryCode)
+            }
+
+            findNavController().navigate(
+                R.id.action_feedsFragment_to_countryTopTenFragment,
+                bundle
+            )
+        }
+
         newsAdapter.setOnArticleClickListener { clickedArticle ->
             val bundle = Bundle().apply {
                 putSerializable("article", clickedArticle)
@@ -83,16 +94,16 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
             myModelList = ArrayList()
 
             //add items
-            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria"))
-            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria"))
-            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria"))
-            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria"))
-            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria"))
-            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria"))
-            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria"))
-            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria"))
-            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria"))
-            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria"))
+            myModelList.add(Country(R.drawable.ic_launcher_background, "Nigeria", "ng"))
+            myModelList.add(Country(R.drawable.ic_launcher_background, "United States", "us"))
+            myModelList.add(Country(R.drawable.ic_launcher_background, "Argentina", "ar"))
+            myModelList.add(Country(R.drawable.ic_launcher_background, "Greece", "gr"))
+            myModelList.add(Country(R.drawable.ic_launcher_background, "Netherlands", "nl"))
+            myModelList.add(Country(R.drawable.ic_launcher_background, "South Africa", "za"))
+            myModelList.add(Country(R.drawable.ic_launcher_background, "Austrailia", "au"))
+            myModelList.add(Country(R.drawable.ic_launcher_background, "Honk Kong", "hk"))
+            myModelList.add(Country(R.drawable.ic_launcher_background, "New Zealand", "nz"))
+            myModelList.add(Country(R.drawable.ic_launcher_background, "South Korea", "kr"))
 
 
             countryAdapter.countries = myModelList

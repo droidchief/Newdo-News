@@ -5,21 +5,25 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.AbsListView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newdo.R
 import com.example.newdo.adapters.CountryTopTenAdapter
 import com.example.newdo.customview.CenterZoomLayout
+import com.example.newdo.database.model.Article
 import com.example.newdo.databinding.FragmentCountryTopTenBinding
 import com.example.newdo.ui.MainActivity
 import com.example.newdo.ui.viewmodels.NewsViewModel
 import com.example.newdo.utils.Constants.Companion.QUERY_PAGE_SIZE
 import com.example.newdo.utils.Resource
+import com.google.android.material.snackbar.Snackbar
 
 class CountryTopTenFragment : Fragment(R.layout.fragment_country_top_ten) {
 
@@ -28,12 +32,19 @@ class CountryTopTenFragment : Fragment(R.layout.fragment_country_top_ten) {
     lateinit var viewModel: NewsViewModel
     lateinit var newsAdapter: CountryTopTenAdapter
 
+    val args: CountryTopTenFragmentArgs by navArgs()
+    private lateinit var countryCode: String
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCountryTopTenBinding.bind(view)
 
         viewModel = (activity as MainActivity).viewModel
+
+        //get current country passed from previous page
+        countryCode = args.country
 
         //setup recycler view
         setUpRecyclerView()
@@ -181,7 +192,7 @@ class CountryTopTenFragment : Fragment(R.layout.fragment_country_top_ten) {
             val paginate =
                 isNotLoadingAndAtLastPage && isAtLastItem && isNotArBeginning && isTotalMoreThanVisible && isScrolling
             if (paginate) {
-                viewModel.getBreakingNews("us")
+                viewModel.getBreakingNews(countryCode)
                 isScrolling = false
             }
         }
