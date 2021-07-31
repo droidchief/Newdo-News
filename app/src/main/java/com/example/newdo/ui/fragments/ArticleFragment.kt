@@ -145,23 +145,7 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
             webViewClient = WebViewClient()
             webChromeClient = WebChromeClient()
 
-            when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                Configuration.UI_MODE_NIGHT_NO -> {
-                    if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
-                        WebSettingsCompat.setForceDark(
-                            webSettings,
-                            WebSettingsCompat.FORCE_DARK_OFF
-                        )
-                    }
-                } // Light mode is active
-
-                Configuration.UI_MODE_NIGHT_YES -> {
-                    if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
-                        WebSettingsCompat.setForceDark(webSettings, WebSettingsCompat.FORCE_DARK_ON)
-                    }
-                } // Night mode is active
-            }
-
+            observeDarkMode()
 
 
             if (article.url != null) {
@@ -197,6 +181,26 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
             viewModel.saveArticle(article)
             Snackbar.make(view, "Saved Successfully", Snackbar.LENGTH_SHORT).show()
         }
+    }
+
+    private fun observeDarkMode() {
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> {
+                if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
+                    WebSettingsCompat.setForceDark(
+                        binding.webView.settings,
+                        WebSettingsCompat.FORCE_DARK_OFF
+                    )
+                }
+            } // Light mode is active
+
+            Configuration.UI_MODE_NIGHT_YES -> {
+                if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
+                    WebSettingsCompat.setForceDark(binding.webView.settings, WebSettingsCompat.FORCE_DARK_ON)
+                }
+            } // Night mode is active
+        }
+
     }
 
     private fun handleOnBackPressed() {
