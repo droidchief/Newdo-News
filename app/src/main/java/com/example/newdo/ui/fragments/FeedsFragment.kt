@@ -8,23 +8,23 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.AbsListView
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.webkit.WebSettingsCompat
-import androidx.webkit.WebViewFeature
 import com.example.newdo.R
 import com.example.newdo.adapters.CountriesAdapter
+import com.example.newdo.adapters.MenuAdapter
 import com.example.newdo.adapters.NewsAdapter
 import com.example.newdo.database.model.Country
+import com.example.newdo.database.model.Menu
 import com.example.newdo.databinding.FragmentFeedBinding
 import com.example.newdo.ui.MainActivity
-import com.example.newdo.ui.menu.MenuActivity
+import com.example.newdo.ui.menu.SettingsActivity
 import com.example.newdo.ui.viewmodels.NewsViewModel
 import com.example.newdo.utils.Constants.Companion.QUERY_PAGE_SIZE
 import com.example.newdo.utils.Resource
@@ -38,7 +38,9 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
     lateinit var viewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
     lateinit var countryAdapter: CountriesAdapter
-    private lateinit var myModelList: ArrayList<Country>
+    lateinit var menuAdapter: MenuAdapter
+    private lateinit var myCountryList: ArrayList<Country>
+    private lateinit var myMenuList: ArrayList<Menu>
 
     lateinit var currentLocation: Location
 
@@ -53,35 +55,72 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
 
         observeDarkMode()
 
-        binding.menu.setOnClickListener {
-            startActivity(Intent(requireContext(), MenuActivity::class.java))
-        }
-
         //setup recycler views
         setUpRecyclerView()
         setUpCountryRecyclerView()
+        setUpMenuRecyclerView()
+
+        //more menu
+        binding.menu.setOnClickListener {
+            openMenu()
+        }
+        binding.closeMenu.setOnClickListener {
+            closeMenu()
+        }
+
+        menuAdapter.setOnMenuClickListener { position ->
+            when(position) {
+                0 -> {
+                    val bundle = Bundle().apply {
+                        putString("country", "ng")
+                    }
+
+                    findNavController().navigate(
+                        R.id.action_feedsFragment_to_countryTopTenFragment,
+                        bundle
+                    )
+                }
+
+                3 -> startActivity(Intent(requireContext(), SettingsActivity::class.java))
+
+            }
+        }
 
         //pass data to the article page
         countryAdapter.setOnCountryClickListener { countryCode ->
-            val bundle = Bundle().apply {
-                putString("country", countryCode)
+            if (binding.menuLayout.isVisible) {
+                return@setOnCountryClickListener
+
+            } else {
+                val bundle = Bundle().apply {
+                    putString("country", countryCode)
+                }
+
+                findNavController().navigate(
+                    R.id.action_feedsFragment_to_countryTopTenFragment,
+                    bundle
+                )
             }
 
-            findNavController().navigate(
-                R.id.action_feedsFragment_to_countryTopTenFragment,
-                bundle
-            )
         }
 
         newsAdapter.setOnArticleClickListener { clickedArticle ->
-            val bundle = Bundle().apply {
-                putSerializable("article", clickedArticle)
+            if (binding.menuLayout.isVisible) {
+                return@setOnArticleClickListener
+
+            } else {
+
+                val bundle = Bundle().apply {
+                    putSerializable("article", clickedArticle)
+                }
+
+                findNavController().navigate(
+                    R.id.action_feedsFragment_to_articleFragment,
+                    bundle
+                )
+
             }
 
-            findNavController().navigate(
-                R.id.action_feedsFragment_to_articleFragment,
-                bundle
-            )
         }
 
         makeRequest()
@@ -96,29 +135,68 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
 
     }
 
+    private fun openMenu() {
+        if (!binding.menuLayout.isVisible) {
+            val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_in_right)
+            binding.menuLayout.animation = anim
+            binding.menuLayout.visibility = View.VISIBLE
+        }
+    }
+
+    private fun closeMenu() {
+        if (binding.menuLayout.isVisible) {
+            val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_out_right)
+            binding.menuLayout.animation = anim
+            binding.menuLayout.visibility = View.INVISIBLE
+        }
+
+    }
+
+    private fun setUpMenuRecyclerView() {
+        binding.menuRecyclerView.apply {
+            menuAdapter = MenuAdapter(requireContext())
+            adapter = menuAdapter
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+            //init list
+            myMenuList = ArrayList()
+
+            //add items
+            myMenuList.add(Menu(R.drawable.ic_baseline_settings_input_svideo_24, "Discover"))
+            myMenuList.add(Menu(R.drawable.ic_baseline_slow_motion_video_24, "Stories"))
+            myMenuList.add(Menu(R.drawable.empty_vector, ""))
+            myMenuList.add(Menu(R.drawable.ic_baseline_settings_24, "Settings"))
+
+            menuAdapter.menuList = myMenuList
+        }
+
+    }
+
     private fun setUpCountryRecyclerView() {
         binding.countryListRecyclerView.apply {
             countryAdapter = CountriesAdapter(requireContext())
             adapter = countryAdapter
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
             //init list
-            myModelList = ArrayList()
+            myCountryList = ArrayList()
 
             //add items
-            myModelList.add(Country(R.drawable.ic_nigeria, "Nigeria", "ng"))
-            myModelList.add(Country(R.drawable.ic_united_states, "United States", "us"))
-            myModelList.add(Country(R.drawable.ic_argentina, "Argentina", "ar"))
-            myModelList.add(Country(R.drawable.ic_greece, "Greece", "gr"))
-            myModelList.add(Country(R.drawable.ic_netherlands, "Netherlands", "nl"))
-            myModelList.add(Country(R.drawable.ic_south_africa, "South Africa", "za"))
-            myModelList.add(Country(R.drawable.ic_austrailia, "Australia", "au"))
-            myModelList.add(Country(R.drawable.ic_hong_kong, "Honk Kong", "hk"))
-            myModelList.add(Country(R.drawable.ic_new_zealand, "New Zealand", "nz"))
-            myModelList.add(Country(R.drawable.ic_south_korea, "South Korea", "kr"))
+            myCountryList.add(Country(R.drawable.ic_nigeria, "Nigeria", "ng"))
+            myCountryList.add(Country(R.drawable.ic_united_states, "United States", "us"))
+            myCountryList.add(Country(R.drawable.ic_argentina, "Argentina", "ar"))
+            myCountryList.add(Country(R.drawable.ic_greece, "Greece", "gr"))
+            myCountryList.add(Country(R.drawable.ic_netherlands, "Netherlands", "nl"))
+            myCountryList.add(Country(R.drawable.ic_south_africa, "South Africa", "za"))
+            myCountryList.add(Country(R.drawable.ic_austrailia, "Australia", "au"))
+            myCountryList.add(Country(R.drawable.ic_hong_kong, "Honk Kong", "hk"))
+            myCountryList.add(Country(R.drawable.ic_new_zealand, "New Zealand", "nz"))
+            myCountryList.add(Country(R.drawable.ic_south_korea, "South Korea", "kr"))
 
 
-            countryAdapter.countries = myModelList
+            countryAdapter.countries = myCountryList
         }
 
     }
@@ -231,7 +309,7 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
             val paginate =
                 isNotLoadingAndAtLastPage && isAtLastItem && isNotArBeginning && isTotalMoreThanVisible && isScrolling
             if (paginate) {
-                viewModel.getBreakingNews("us")
+                viewModel.getBreakingNews("ng")
                 isScrolling = false
             }
         }
@@ -242,10 +320,12 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
             Configuration.UI_MODE_NIGHT_NO -> {
                 binding.menu.setImageResource(R.drawable.ic_menu_dark)
                 binding.pageTitle.setTextColor(Color.parseColor("#131313"))
+                binding.menuLayout.setBackgroundResource(R.color.white)
             } // Light mode is active
 
             Configuration.UI_MODE_NIGHT_YES -> {
                 binding.menu.setImageResource(R.drawable.ic_menu_light)
+                binding.menuLayout.setBackgroundResource(R.color.black)
             } // Night mode is active
         }
     }

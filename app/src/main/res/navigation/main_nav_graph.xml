@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_favouriteFragment2_to_articleFragment"
             app:destination="@id/articleFragment" />
+        <action
+            android:id="@+id/action_favouriteFragment_to_countryTopTenFragment"
+            app:destination="@id/countryTopTenFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"

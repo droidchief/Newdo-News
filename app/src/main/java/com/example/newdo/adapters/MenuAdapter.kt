@@ -10,38 +10,39 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newdo.R
-import com.example.newdo.database.model.Country
+import com.example.newdo.database.model.Menu
 import com.example.newdo.databinding.ItemCountryBinding
+import com.example.newdo.databinding.ItemMenuBinding
 
-class CountriesAdapter(private val context: Context) :
-    RecyclerView.Adapter<CountriesAdapter.NewsViewHolder>() {
+class MenuAdapter(private val context: Context) :
+    RecyclerView.Adapter<MenuAdapter.NewsViewHolder>() {
 
-    inner class NewsViewHolder(val binding: ItemCountryBinding) :
+    inner class NewsViewHolder(val binding: ItemMenuBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Country>() {
-        override fun areItemsTheSame(oldItem: Country, newItem: Country): Boolean {
-            return oldItem.countryName == newItem.countryName
+    private val diffCallback = object : DiffUtil.ItemCallback<Menu>() {
+        override fun areItemsTheSame(oldItem: Menu, newItem: Menu): Boolean {
+            return oldItem.menuName == newItem.menuName
         }
 
-        override fun areContentsTheSame(oldItem: Country, newItem: Country): Boolean {
+        override fun areContentsTheSame(oldItem: Menu, newItem: Menu): Boolean {
             return oldItem == newItem
         }
     }
 
     val differ = AsyncListDiffer(this, diffCallback)
-    var countries: List<Country>
+    var menuList: List<Menu>
         get() = differ.currentList
         set(value) {
             differ.submitList(value)
         }
 
-    override fun getItemCount() = countries.size
+    override fun getItemCount() = menuList.size
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         return NewsViewHolder(
-            ItemCountryBinding.inflate(
+            ItemMenuBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -51,24 +52,25 @@ class CountriesAdapter(private val context: Context) :
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         holder.binding.apply {
-            val country = countries[position]
+            val menu = menuList[position]
             holder.itemView.apply {
 
-                Glide.with(this).load(country.countryFlag).into(countryFlag)
+                Glide.with(this).load(menu.menuIcon).into(menuIcon)
 
-                countryName.text = country.countryName
+                menuName.text = menu.menuName
 
                 //article card background
                 articleCardBackground(holder)
 
                 //add click event for articles
                 setOnClickListener {
-                    onCountryClickListener?.let { it(country.countryCode) }
+                    onMenuClickListener?.let { it(position) }
                 }
 
 
             }
         }
+
     }
 
 
@@ -78,12 +80,10 @@ class CountriesAdapter(private val context: Context) :
 
                 when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                     Configuration.UI_MODE_NIGHT_NO -> {
-                        countryFlag.setBackgroundResource(R.drawable.story_bg)
-                        countryName.setTextColor(Color.parseColor("#131313"))
+                        menuName.setTextColor(Color.parseColor("#131313"))
                     } // Light mode is active
 
                     Configuration.UI_MODE_NIGHT_YES -> {
-                        countryFlag.setBackgroundResource(R.drawable.story_bg)
                     } // Night mode is active
                 }
             }
@@ -91,10 +91,10 @@ class CountriesAdapter(private val context: Context) :
 
     }
 
-    private var onCountryClickListener: ((String) -> Unit)? = null
+    private var onMenuClickListener: ((Int) -> Unit)? = null
 
-    fun setOnCountryClickListener(listener: (String) -> Unit) {
-        onCountryClickListener = listener
+    fun setOnMenuClickListener(listener: (Int) -> Unit) {
+        onMenuClickListener = listener
     }
 }
 

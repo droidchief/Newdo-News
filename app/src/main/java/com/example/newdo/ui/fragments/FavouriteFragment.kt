@@ -2,9 +2,11 @@ package com.example.newdo.ui.fragments
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import android.view.animation.AnimationUtils
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -13,10 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newdo.R
+import com.example.newdo.adapters.MenuAdapter
 import com.example.newdo.adapters.NewsAdapter
+import com.example.newdo.database.model.Menu
 import com.example.newdo.databinding.FragmentFavouriteBinding
 import com.example.newdo.ui.MainActivity
-import com.example.newdo.ui.menu.MenuActivity
+import com.example.newdo.ui.menu.SettingsActivity
 import com.example.newdo.ui.viewmodels.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -26,6 +30,9 @@ class FavouriteFragment: Fragment(R.layout.fragment_favourite) {
 
     lateinit var viewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
+    private lateinit var menuAdapter: MenuAdapter
+    private lateinit var myMenuList: ArrayList<Menu>
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,11 +42,36 @@ class FavouriteFragment: Fragment(R.layout.fragment_favourite) {
 
         observeDarkMode()
 
+        setUpRecyclerView()
+        setUpMenuRecyclerView()
+
+        //more menu
         binding.menu.setOnClickListener {
-            startActivity(Intent(requireContext(), MenuActivity::class.java))
+            openMenu()
+        }
+        binding.closeMenu.setOnClickListener {
+            closeMenu()
         }
 
-        setUpRecyclerView() 
+        menuAdapter.setOnMenuClickListener { position ->
+            when(position) {
+                0 -> {
+                    val bundle = Bundle().apply {
+                        putString("country", "ng")
+                    }
+
+                    findNavController().navigate(
+                        R.id.action_favouriteFragment_to_countryTopTenFragment,
+                        bundle
+                    )
+                }
+
+                3 -> startActivity(Intent(requireContext(), SettingsActivity::class.java))
+
+            }
+        }
+
+
 
         //pass data to the article page
         newsAdapter.setOnArticleClickListener { clickedArticle ->
@@ -99,6 +131,45 @@ class FavouriteFragment: Fragment(R.layout.fragment_favourite) {
 
     }
 
+    private fun setUpMenuRecyclerView() {
+        binding.menuRecyclerView.apply {
+            menuAdapter = MenuAdapter(requireContext())
+            adapter = menuAdapter
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+            //init list
+            myMenuList = ArrayList()
+
+            //add items
+            myMenuList.add(Menu(R.drawable.ic_baseline_settings_input_svideo_24, "Discover"))
+            myMenuList.add(Menu(R.drawable.ic_baseline_slow_motion_video_24, "Stories"))
+            myMenuList.add(Menu(R.drawable.empty_vector, ""))
+            myMenuList.add(Menu(R.drawable.ic_baseline_settings_24, "Settings"))
+
+            menuAdapter.menuList = myMenuList
+        }
+
+    }
+
+
+    private fun openMenu() {
+        if (!binding.menuLayout.isVisible) {
+            val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_in_right)
+            binding.menuLayout.animation = anim
+            binding.menuLayout.visibility = View.VISIBLE
+        }
+    }
+
+    private fun closeMenu() {
+        if (binding.menuLayout.isVisible) {
+            val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_out_right)
+            binding.menuLayout.animation = anim
+            binding.menuLayout.visibility = View.INVISIBLE
+        }
+
+    }
+
     private fun setUpRecyclerView() {
         newsAdapter = NewsAdapter(requireContext())
         binding.favouriteRecyclerView.apply {
@@ -112,10 +183,13 @@ class FavouriteFragment: Fragment(R.layout.fragment_favourite) {
         when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
             Configuration.UI_MODE_NIGHT_NO -> {
                 binding.menu.setImageResource(R.drawable.ic_menu_dark)
+                binding.pageTitle.setTextColor(Color.parseColor("#131313"))
+                binding.menuLayout.setBackgroundResource(R.color.white)
             } // Light mode is active
 
             Configuration.UI_MODE_NIGHT_YES -> {
                 binding.menu.setImageResource(R.drawable.ic_menu_light)
+                binding.menuLayout.setBackgroundResource(R.color.black)
             } // Night mode is active
         }
     }
