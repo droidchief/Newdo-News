@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_searchFragment2_to_articleFragment"
             app:destination="@id/articleFragment" />
+        <argument
+            android:name="topic"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/articleFragment"
@@ -57,5 +60,14 @@
         <argument
             android:name="country"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchTopicsFragment"
+        android:name="com.example.newdo.ui.fragments.SearchTopicsFragment"
+        android:label="fragment_search_topics"
+        tools:layout="@layout/fragment_search_topics" >
+        <action
+            android:id="@+id/action_searchTopicsFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
 </navigation>
