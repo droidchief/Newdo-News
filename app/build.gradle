@@ -102,10 +102,6 @@ dependencies {
     //Web toolkit
     implementation "androidx.webkit:webkit:1.2.0-alpha01"
 
-    //Vimeo
-    implementation "com.github.vimeo.vimeo-networking-java:vimeo-networking:2.0.0"
-    implementation "com.github.vimeo.vimeo-networking-java:models:2.0.0"
-
     //Circle image view
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
