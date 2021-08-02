@@ -29,4 +29,6 @@
     <string name="how_to_save">Tap ❤️ wherever you see it to save your favourite story</string>
     <string name="stories">Stories</string>
     <string name="close">Close</string>
+    <string name="popular">Popular</string>
+    <string name="trending">Trending</string>
 </resources>

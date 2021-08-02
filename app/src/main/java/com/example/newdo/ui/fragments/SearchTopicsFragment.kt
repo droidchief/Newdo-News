@@ -7,6 +7,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newdo.R
 import com.example.newdo.adapters.TopicAdapter
 import com.example.newdo.database.model.Topics
@@ -32,7 +33,7 @@ class SearchTopicsFragment : Fragment(R.layout.fragment_search_topics) {
 
         observeDarkMode()
 
-        setUpRecyclerView()
+        setUpRecyclerViews()
 
         //pass data to the article page
         topicAdapter.setOnTopicClickListener { selectedTopic ->
@@ -59,25 +60,28 @@ class SearchTopicsFragment : Fragment(R.layout.fragment_search_topics) {
 
     }
 
-    private fun setUpRecyclerView() {
+    private fun setUpRecyclerViews() {
 
         binding.topicsRecyclerView.apply {
             topicAdapter = TopicAdapter(requireContext())
             adapter = topicAdapter
             layoutManager = GridLayoutManager(requireContext(), spanCount)
+
             //init list
             myTopicList = ArrayList()
 
             //add data
+            myTopicList.add(Topics("Africa"))
+            myTopicList.add(Topics("Politics"))
             myTopicList.add(Topics("Sports"))
-            myTopicList.add(Topics("Sports"))
-            myTopicList.add(Topics("Sports"))
-            myTopicList.add(Topics("Sports"))
-            myTopicList.add(Topics("Sports"))
+            myTopicList.add(Topics("Nigeria"))
+            myTopicList.add(Topics("Art"))
+            myTopicList.add(Topics("Film"))
+            myTopicList.add(Topics("Technology"))
+            myTopicList.add(Topics("Business"))
 
             topicAdapter.topics = myTopicList
         }
-
 
     }
 
