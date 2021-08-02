@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.view.animation.AnimationUtils
 import android.widget.AbsListView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -69,7 +68,7 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
         }
 
         menuAdapter.setOnMenuClickListener { position ->
-            when(position) {
+            when (position) {
                 0 -> {
                     val bundle = Bundle().apply {
                         putString("country", "ng")
@@ -80,6 +79,9 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
                         bundle
                     )
                 }
+
+                1 -> findNavController().navigate(R.id.action_feedsFragment_to_storiesFragment2)
+
 
                 3 -> startActivity(Intent(requireContext(), SettingsActivity::class.java))
 

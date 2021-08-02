@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_feedsFragment_to_countryTopTenFragment"
             app:destination="@id/countryTopTenFragment" />
+        <action
+            android:id="@+id/action_feedsFragment_to_storiesFragment2"
+            app:destination="@id/storiesFragment" />
     </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
@@ -27,6 +30,9 @@
         <action
             android:id="@+id/action_favouriteFragment_to_countryTopTenFragment"
             app:destination="@id/countryTopTenFragment" />
+        <action
+            android:id="@+id/action_favouriteFragment_to_storiesFragment"
+            app:destination="@id/storiesFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -70,5 +76,13 @@
         <action
             android:id="@+id/action_searchTopicsFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_searchTopicsFragment_to_storiesFragment"
+            app:destination="@id/storiesFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/storiesFragment"
+        android:name="com.example.newdo.ui.fragments.StoriesFragment"
+        android:label="fragment_stories"
+        tools:layout="@layout/fragment_stories" />
 </navigation>

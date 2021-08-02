@@ -99,6 +99,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
 
+    //Exo Player
+    implementation 'com.google.android.exoplayer:exoplayer:2.14.2'
+
     //Web toolkit
     implementation "androidx.webkit:webkit:1.2.0-alpha01"
 

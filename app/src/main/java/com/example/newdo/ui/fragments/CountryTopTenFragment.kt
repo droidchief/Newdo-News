@@ -1,5 +1,7 @@
 package com.example.newdo.ui.fragments
 
+import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -40,6 +42,8 @@ class CountryTopTenFragment : Fragment(R.layout.fragment_country_top_ten) {
         binding = FragmentCountryTopTenBinding.bind(view)
 
         viewModel = (activity as MainActivity).viewModel
+
+        observeDarkMode()
 
         //get current country passed from previous page
         countryCode = args.country
@@ -198,4 +202,16 @@ class CountryTopTenFragment : Fragment(R.layout.fragment_country_top_ten) {
             }
         }
     }
+
+    private fun observeDarkMode() {
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> {
+                binding.pageTitle.setTextColor(Color.parseColor("#131313"))
+            } // Light mode is active
+
+            Configuration.UI_MODE_NIGHT_YES -> {
+            } // Night mode is active
+        }
+    }
+
 }

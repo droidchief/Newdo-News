@@ -66,6 +66,9 @@ class FavouriteFragment: Fragment(R.layout.fragment_favourite) {
                     )
                 }
 
+                1 -> findNavController().navigate(R.id.action_favouriteFragment_to_storiesFragment)
+
+
                 3 -> startActivity(Intent(requireContext(), SettingsActivity::class.java))
 
             }
