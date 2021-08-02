@@ -59,7 +59,7 @@ class TopicAdapter(private val context: Context) :
 
                 //add click event for articles
                 setOnClickListener {
-                    onCountryClickListener?.let { it(topic.title) }
+                    onTopicClickListener?.let { it(topic.title) }
 
                 }
 
@@ -87,10 +87,10 @@ class TopicAdapter(private val context: Context) :
 
     }
 
-    private var onCountryClickListener: ((String) -> Unit)? = null
+    private var onTopicClickListener: ((String) -> Unit)? = null
 
-    fun setOnCountryClickListener(listener: (String) -> Unit) {
-        onCountryClickListener = listener
+    fun setOnTopicClickListener(listener: (String) -> Unit) {
+        onTopicClickListener = listener
     }
 }
 

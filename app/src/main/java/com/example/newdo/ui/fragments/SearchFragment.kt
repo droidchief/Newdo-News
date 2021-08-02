@@ -38,6 +38,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     lateinit var viewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
 
+    val args: SearchFragmentArgs by navArgs()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSearchBinding.bind(view)
@@ -81,8 +83,15 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             voiceSearch()
         }
 
+        searchSelectedTopic()
+
         makeRequest()
 
+    }
+
+    private fun searchSelectedTopic() {
+        val topic = args.topic
+        binding.etSearch.setText(topic)
     }
 
     private fun voiceSearch() {

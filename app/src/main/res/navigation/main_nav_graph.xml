@@ -38,7 +38,8 @@
             app:destination="@id/articleFragment" />
         <argument
             android:name="topic"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/articleFragment"

@@ -34,15 +34,28 @@ class SearchTopicsFragment : Fragment(R.layout.fragment_search_topics) {
 
         setUpRecyclerView()
 
-
         //pass data to the article page
-        topicAdapter.setOnCountryClickListener {  topic ->
+        topicAdapter.setOnTopicClickListener { selectedTopic ->
+            val bundle = Bundle().apply {
+                putString("topic", selectedTopic)
+            }
 
             findNavController().navigate(
-                R.id.action_searchTopicsFragment_to_searchFragment
+                 R.id.action_searchTopicsFragment_to_searchFragment,
+                bundle
             )
-
         }
+
+        binding.searchFragment.setOnClickListener {
+            val bundle = Bundle().apply {
+                putString("topic", "")
+            }
+            findNavController().navigate(
+                R.id.action_searchTopicsFragment_to_searchFragment,
+                bundle
+            )
+        }
+
 
     }
 
