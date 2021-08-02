@@ -137,16 +137,12 @@ class FeedsFragment : Fragment(R.layout.fragment_feed) {
 
     private fun openMenu() {
         if (!binding.menuLayout.isVisible) {
-            val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_in_right)
-            binding.menuLayout.animation = anim
             binding.menuLayout.visibility = View.VISIBLE
         }
     }
 
     private fun closeMenu() {
         if (binding.menuLayout.isVisible) {
-            val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_out_right)
-            binding.menuLayout.animation = anim
             binding.menuLayout.visibility = View.INVISIBLE
         }
 
