@@ -104,10 +104,13 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 
     //Exo Player
-    implementation 'com.google.android.exoplayer:exoplayer:2.14.2'
+    implementation 'com.google.android.exoplayer:exoplayer:2.13.2'
+
+    //YouTube Extractor
+    implementation 'com.github.HaarigerHarald:android-youtubeExtractor:v2.1.0'
 
     //Web toolkit
-    implementation "androidx.webkit:webkit:1.2.0-alpha01"
+    implementation "androidx.webkit:webkit:1.4.0"
 
     //Circle image view
     implementation 'de.hdodenhof:circleimageview:3.1.0'

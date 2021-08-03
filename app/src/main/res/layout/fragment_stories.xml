@@ -38,12 +38,12 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <com.google.android.exoplayer2.ui.StyledPlayerView
+            <com.google.android.exoplayer2.ui.PlayerView
                 android:id="@+id/storiesVideoView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <ProgressBar
                     android:id="@+id/storiesProgress"
@@ -52,7 +52,7 @@
                     android:layout_gravity="center"
                     android:visibility="invisible"/>
 
-            </com.google.android.exoplayer2.ui.StyledPlayerView>
+            </com.google.android.exoplayer2.ui.PlayerView>
         </FrameLayout>
 
     </LinearLayout>
