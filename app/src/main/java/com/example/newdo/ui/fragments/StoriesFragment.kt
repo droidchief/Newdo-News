@@ -12,6 +12,7 @@ import com.example.newdo.database.model.Story
 import com.example.newdo.databinding.FragmentStoriesBinding
 import com.example.newdo.ui.MainActivity
 import com.example.newdo.ui.viewmodels.NewsViewModel
+import com.google.android.exoplayer2.SimpleExoPlayer
 
 class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
