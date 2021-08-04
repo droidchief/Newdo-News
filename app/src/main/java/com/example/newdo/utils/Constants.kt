@@ -7,5 +7,7 @@ class Constants {
         const val SEARCH_NEWS_DELAY_TIME =  500L
         const val QUERY_PAGE_SIZE = 20
         const val RQ_SPEECH_REC = 102
+        const val YOUTUBE_I_TAG = 137
+        const val YOUTUBE_AUDIO_TAG = 140
     }
 }

@@ -3,16 +3,27 @@ package com.example.newdo.ui.fragments
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
+import android.util.SparseArray
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import at.huber.youtubeExtractor.VideoMeta
+import at.huber.youtubeExtractor.YouTubeExtractor
+import at.huber.youtubeExtractor.YtFile
 import com.example.newdo.R
 import com.example.newdo.adapters.StoriesAdapter
 import com.example.newdo.database.model.Story
 import com.example.newdo.databinding.FragmentStoriesBinding
 import com.example.newdo.ui.MainActivity
 import com.example.newdo.ui.viewmodels.NewsViewModel
+import com.example.newdo.utils.Constants.Companion.YOUTUBE_AUDIO_TAG
+import com.example.newdo.utils.Constants.Companion.YOUTUBE_I_TAG
+import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.source.MediaSource
+import com.google.android.exoplayer2.source.MergingMediaSource
+import com.google.android.exoplayer2.source.ProgressiveMediaSource
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.util.Util
 
 class StoriesFragment : Fragment(R.layout.fragment_stories) {
@@ -54,6 +65,40 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
     private fun initializePlayer() {
         exoPlayer = SimpleExoPlayer.Builder(requireContext()).build()
         binding.storiesVideoView.player = exoPlayer
+
+        //Phillipp Lackner on YouTube
+        val videoLink  = "https://www.youtube.com/watch?v=aIGY1tWekGw"
+
+        object : YouTubeExtractor(requireContext()) {
+            override fun onExtractionComplete(
+                ytFiles: SparseArray<YtFile>?,
+                videoMeta: VideoMeta?
+            ) {
+                if (ytFiles != null) {
+                    val itag = YOUTUBE_I_TAG //Tag of video 1080p. Check out YTFile.java
+                    val audioTag = YOUTUBE_AUDIO_TAG //Tag of m4a audio
+                    val videoUrl = ytFiles[YOUTUBE_I_TAG].url
+                    val auidoUrl = ytFiles[YOUTUBE_AUDIO_TAG].url
+
+                    val audioSource : MediaSource = ProgressiveMediaSource
+                        .Factory(DefaultHttpDataSource.Factory())
+                        .createMediaSource(MediaItem.fromUri(auidoUrl))
+
+                    val videoSource : MediaSource = ProgressiveMediaSource
+                        .Factory(DefaultHttpDataSource.Factory())
+                        .createMediaSource(MediaItem.fromUri(videoUrl))
+
+                    exoPlayer!!.setMediaSource(MergingMediaSource(
+                        true, videoSource, audioSource
+                    ), true)
+                    exoPlayer!!.prepare()
+                    exoPlayer!!.playWhenReady = playOnReady
+                    exoPlayer!!.seekTo(currentWindow, playbackPosition)
+                }
+            }
+
+        }.extract(videoLink, false, true)
+
     }
 
     private fun setUpRecyclerViews() {
