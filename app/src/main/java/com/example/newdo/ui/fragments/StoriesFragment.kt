@@ -77,8 +77,8 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                 if (ytFiles != null) {
                     val itag = YOUTUBE_I_TAG //Tag of video 1080p. Check out YTFile.java
                     val audioTag = YOUTUBE_AUDIO_TAG //Tag of m4a audio
-                    val videoUrl = ytFiles[YOUTUBE_I_TAG].url
-                    val auidoUrl = ytFiles[YOUTUBE_AUDIO_TAG].url
+                    val videoUrl = ytFiles[itag].url
+                    val auidoUrl = ytFiles[audioTag].url
 
                     val audioSource : MediaSource = ProgressiveMediaSource
                         .Factory(DefaultHttpDataSource.Factory())
