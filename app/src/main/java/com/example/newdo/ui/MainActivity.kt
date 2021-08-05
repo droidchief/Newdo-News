@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //set theme
+        setTheme(R.style.Theme_Newdo)
         themeManager = ThemeManager(this)
         observeAppTheme()
         binding = ActivityMainBinding.inflate(layoutInflater)

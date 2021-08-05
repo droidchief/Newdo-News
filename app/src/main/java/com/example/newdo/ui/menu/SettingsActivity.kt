@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.asLiveData
+import com.example.newdo.R
 import com.example.newdo.databinding.ActivitySettingsBinding
 import com.example.newdo.helperfile.ThemeManager
 import kotlinx.coroutines.GlobalScope
@@ -24,6 +25,7 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //set theme
+        setTheme(R.style.Theme_Newdo)
         themeManager = ThemeManager(this)
         observeAppTheme()
         binding = ActivitySettingsBinding.inflate(layoutInflater)
