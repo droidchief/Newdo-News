@@ -7,6 +7,7 @@ import android.util.SparseArray
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import at.huber.youtubeExtractor.VideoMeta
 import at.huber.youtubeExtractor.YouTubeExtractor
 import at.huber.youtubeExtractor.YtFile
@@ -52,8 +53,6 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
         setUpRecyclerViews()
 
-        initializePlayer()
-
         //pass url to the media player
         storyAdapter.setOnStoryClickListener {
 
@@ -62,51 +61,14 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
     }
 
-    private fun initializePlayer() {
-        exoPlayer = SimpleExoPlayer.Builder(requireContext()).build()
-        binding.storiesVideoView.player = exoPlayer
-
-        //Phillipp Lackner on YouTube
-        val videoLink  = "https://www.youtube.com/watch?v=aIGY1tWekGw"
-
-        object : YouTubeExtractor(requireContext()) {
-            override fun onExtractionComplete(
-                ytFiles: SparseArray<YtFile>?,
-                videoMeta: VideoMeta?
-            ) {
-                if (ytFiles != null) {
-                    val itag = YOUTUBE_I_TAG //Tag of video 1080p. Check out YTFile.java
-                    val audioTag = YOUTUBE_AUDIO_TAG //Tag of m4a audio
-                    val videoUrl = ytFiles[itag].url
-                    val auidoUrl = ytFiles[audioTag].url
-
-                    val audioSource : MediaSource = ProgressiveMediaSource
-                        .Factory(DefaultHttpDataSource.Factory())
-                        .createMediaSource(MediaItem.fromUri(auidoUrl))
-
-                    val videoSource : MediaSource = ProgressiveMediaSource
-                        .Factory(DefaultHttpDataSource.Factory())
-                        .createMediaSource(MediaItem.fromUri(videoUrl))
-
-                    exoPlayer!!.setMediaSource(MergingMediaSource(
-                        true, videoSource, audioSource
-                    ), true)
-                    exoPlayer!!.prepare()
-                    exoPlayer!!.playWhenReady = playOnReady
-                    exoPlayer!!.seekTo(currentWindow, playbackPosition)
-                }
-            }
-
-        }.extract(videoLink, false, true)
-
-    }
 
     private fun setUpRecyclerViews() {
 
-        binding.storiesRecyclerView.apply {
+        binding.trendingRecyclerView.apply {
             storyAdapter = StoriesAdapter(requireContext())
             adapter = storyAdapter
-            layoutManager = GridLayoutManager(requireContext(), spanCount)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
             //init list
             myStoryList = ArrayList()
@@ -114,6 +76,13 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
             //add data
             myStoryList.add(
                 Story(
+                    R.drawable.ic_launcher_foreground,
+                    "Hello this is me on the other side",
+                    "https://r3---sn-5hnednlr.googlevideo.com/videoplayback?expire=1627965692&ei=nHQIYYidK4-P-gaLoJDIDA&ip=88.12.19.206&id=o-AIYLAlSNWie1ZgHgPobNlO3aiR1kyx6IsZXa7NV-VMi9&itag=18&source=youtube&requiressl=yes&vprv=1&mime=video%2Fmp4&ns=ugaM6nQnrGkpakePU8eialEG&gir=yes&clen=2647715&ratebypass=yes&dur=120.697&lmt=1623060508295199&fexp=24001373,24007246&c=WEB&txp=6310222&n=eGNRWqCSfVZXcUE7P&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgdW2JJfdW68DSe-wxP3yWlJN6LAQhk4aJMd8QK-uu3hoCIC-KxP3wxYpvV0SLOAE1hE5qj0VotoH-StfXxNhHIOfD&cm2rm=sn-h5qzy7s&req_id=714761e0c44ba3ee&redirect_counter=2&rm=sn-5hneer7s&cms_redirect=yes&ipbypass=yes&mh=1A&mip=197.210.76.151&mm=34&mn=sn-5hnednlr&ms=ltu&mt=1627944036&mv=m&mvi=3&pl=24&lsparams=ipbypass,mh,mip,mm,mn,ms,mv,mvi,pl&lsig=AG3C_xAwRQIgHUP3n4BwZQnDO5PiTLLrIj36ym8V2EvazCGTJm079RYCIQCAEvuTCHCUCdnhMBFjMQBRpfpTa4zhC2I4QilY1_PAAA%3D%3D"
+                )
+            )
+            myStoryList.add(
+                Story(
                     R.drawable.ic_launcher_background,
                     "Meet the latest news app",
                     "https://r3---sn-5hnednlr.googlevideo.com/videoplayback?expire=1627965692&ei=nHQIYYidK4-P-gaLoJDIDA&ip=88.12.19.206&id=o-AIYLAlSNWie1ZgHgPobNlO3aiR1kyx6IsZXa7NV-VMi9&itag=18&source=youtube&requiressl=yes&vprv=1&mime=video%2Fmp4&ns=ugaM6nQnrGkpakePU8eialEG&gir=yes&clen=2647715&ratebypass=yes&dur=120.697&lmt=1623060508295199&fexp=24001373,24007246&c=WEB&txp=6310222&n=eGNRWqCSfVZXcUE7P&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgdW2JJfdW68DSe-wxP3yWlJN6LAQhk4aJMd8QK-uu3hoCIC-KxP3wxYpvV0SLOAE1hE5qj0VotoH-StfXxNhHIOfD&cm2rm=sn-h5qzy7s&req_id=714761e0c44ba3ee&redirect_counter=2&rm=sn-5hneer7s&cms_redirect=yes&ipbypass=yes&mh=1A&mip=197.210.76.151&mm=34&mn=sn-5hnednlr&ms=ltu&mt=1627944036&mv=m&mvi=3&pl=24&lsparams=ipbypass,mh,mip,mm,mn,ms,mv,mvi,pl&lsig=AG3C_xAwRQIgHUP3n4BwZQnDO5PiTLLrIj36ym8V2EvazCGTJm079RYCIQCAEvuTCHCUCdnhMBFjMQBRpfpTa4zhC2I4QilY1_PAAA%3D%3D"
@@ -121,28 +90,21 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
             )
             myStoryList.add(
                 Story(
-                    R.drawable.ic_launcher_foreground,
+                    R.drawable.ic_demo_bg,
                     "Meet the latest news app",
                     "https://r3---sn-5hnednlr.googlevideo.com/videoplayback?expire=1627965692&ei=nHQIYYidK4-P-gaLoJDIDA&ip=88.12.19.206&id=o-AIYLAlSNWie1ZgHgPobNlO3aiR1kyx6IsZXa7NV-VMi9&itag=18&source=youtube&requiressl=yes&vprv=1&mime=video%2Fmp4&ns=ugaM6nQnrGkpakePU8eialEG&gir=yes&clen=2647715&ratebypass=yes&dur=120.697&lmt=1623060508295199&fexp=24001373,24007246&c=WEB&txp=6310222&n=eGNRWqCSfVZXcUE7P&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgdW2JJfdW68DSe-wxP3yWlJN6LAQhk4aJMd8QK-uu3hoCIC-KxP3wxYpvV0SLOAE1hE5qj0VotoH-StfXxNhHIOfD&cm2rm=sn-h5qzy7s&req_id=714761e0c44ba3ee&redirect_counter=2&rm=sn-5hneer7s&cms_redirect=yes&ipbypass=yes&mh=1A&mip=197.210.76.151&mm=34&mn=sn-5hnednlr&ms=ltu&mt=1627944036&mv=m&mvi=3&pl=24&lsparams=ipbypass,mh,mip,mm,mn,ms,mv,mvi,pl&lsig=AG3C_xAwRQIgHUP3n4BwZQnDO5PiTLLrIj36ym8V2EvazCGTJm079RYCIQCAEvuTCHCUCdnhMBFjMQBRpfpTa4zhC2I4QilY1_PAAA%3D%3D"
                 )
             )
             myStoryList.add(
                 Story(
-                    R.drawable.ic_launcher_background,
+                    R.drawable.ic_demo_bg,
                     "Meet the latest news app",
                     "https://r3---sn-5hnednlr.googlevideo.com/videoplayback?expire=1627965692&ei=nHQIYYidK4-P-gaLoJDIDA&ip=88.12.19.206&id=o-AIYLAlSNWie1ZgHgPobNlO3aiR1kyx6IsZXa7NV-VMi9&itag=18&source=youtube&requiressl=yes&vprv=1&mime=video%2Fmp4&ns=ugaM6nQnrGkpakePU8eialEG&gir=yes&clen=2647715&ratebypass=yes&dur=120.697&lmt=1623060508295199&fexp=24001373,24007246&c=WEB&txp=6310222&n=eGNRWqCSfVZXcUE7P&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgdW2JJfdW68DSe-wxP3yWlJN6LAQhk4aJMd8QK-uu3hoCIC-KxP3wxYpvV0SLOAE1hE5qj0VotoH-StfXxNhHIOfD&cm2rm=sn-h5qzy7s&req_id=714761e0c44ba3ee&redirect_counter=2&rm=sn-5hneer7s&cms_redirect=yes&ipbypass=yes&mh=1A&mip=197.210.76.151&mm=34&mn=sn-5hnednlr&ms=ltu&mt=1627944036&mv=m&mvi=3&pl=24&lsparams=ipbypass,mh,mip,mm,mn,ms,mv,mvi,pl&lsig=AG3C_xAwRQIgHUP3n4BwZQnDO5PiTLLrIj36ym8V2EvazCGTJm079RYCIQCAEvuTCHCUCdnhMBFjMQBRpfpTa4zhC2I4QilY1_PAAA%3D%3D"
                 )
             )
             myStoryList.add(
                 Story(
-                    R.drawable.ic_launcher_foreground,
-                    "Meet the latest news app",
-                    "https://r3---sn-5hnednlr.googlevideo.com/videoplayback?expire=1627965692&ei=nHQIYYidK4-P-gaLoJDIDA&ip=88.12.19.206&id=o-AIYLAlSNWie1ZgHgPobNlO3aiR1kyx6IsZXa7NV-VMi9&itag=18&source=youtube&requiressl=yes&vprv=1&mime=video%2Fmp4&ns=ugaM6nQnrGkpakePU8eialEG&gir=yes&clen=2647715&ratebypass=yes&dur=120.697&lmt=1623060508295199&fexp=24001373,24007246&c=WEB&txp=6310222&n=eGNRWqCSfVZXcUE7P&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgdW2JJfdW68DSe-wxP3yWlJN6LAQhk4aJMd8QK-uu3hoCIC-KxP3wxYpvV0SLOAE1hE5qj0VotoH-StfXxNhHIOfD&cm2rm=sn-h5qzy7s&req_id=714761e0c44ba3ee&redirect_counter=2&rm=sn-5hneer7s&cms_redirect=yes&ipbypass=yes&mh=1A&mip=197.210.76.151&mm=34&mn=sn-5hnednlr&ms=ltu&mt=1627944036&mv=m&mvi=3&pl=24&lsparams=ipbypass,mh,mip,mm,mn,ms,mv,mvi,pl&lsig=AG3C_xAwRQIgHUP3n4BwZQnDO5PiTLLrIj36ym8V2EvazCGTJm079RYCIQCAEvuTCHCUCdnhMBFjMQBRpfpTa4zhC2I4QilY1_PAAA%3D%3D"
-                )
-            )
-            myStoryList.add(
-                Story(
-                    R.drawable.ic_launcher_foreground,
+                    R.drawable.ic_demo_bg,
                     "Meet the latest news app",
                     "https://r3---sn-5hnednlr.googlevideo.com/videoplayback?expire=1627965692&ei=nHQIYYidK4-P-gaLoJDIDA&ip=88.12.19.206&id=o-AIYLAlSNWie1ZgHgPobNlO3aiR1kyx6IsZXa7NV-VMi9&itag=18&source=youtube&requiressl=yes&vprv=1&mime=video%2Fmp4&ns=ugaM6nQnrGkpakePU8eialEG&gir=yes&clen=2647715&ratebypass=yes&dur=120.697&lmt=1623060508295199&fexp=24001373,24007246&c=WEB&txp=6310222&n=eGNRWqCSfVZXcUE7P&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRAIgdW2JJfdW68DSe-wxP3yWlJN6LAQhk4aJMd8QK-uu3hoCIC-KxP3wxYpvV0SLOAE1hE5qj0VotoH-StfXxNhHIOfD&cm2rm=sn-h5qzy7s&req_id=714761e0c44ba3ee&redirect_counter=2&rm=sn-5hneer7s&cms_redirect=yes&ipbypass=yes&mh=1A&mip=197.210.76.151&mm=34&mn=sn-5hnednlr&ms=ltu&mt=1627944036&mv=m&mvi=3&pl=24&lsparams=ipbypass,mh,mip,mm,mn,ms,mv,mvi,pl&lsig=AG3C_xAwRQIgHUP3n4BwZQnDO5PiTLLrIj36ym8V2EvazCGTJm079RYCIQCAEvuTCHCUCdnhMBFjMQBRpfpTa4zhC2I4QilY1_PAAA%3D%3D"
                 )
@@ -165,52 +127,9 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
 
-        if (Util.SDK_INT >= 24) initializePlayer()
-    }
 
-    override fun onResume() {
-        super.onResume()
 
-        if (Util.SDK_INT < 24 || exoPlayer == null) {
-            initializePlayer()
-            hideSystemUI()
-        }
-    }
 
-    private fun hideSystemUI() {
-        binding.storiesVideoView.systemUiVisibility = (
-                View.SYSTEM_UI_FLAG_LOW_PROFILE
-                        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                )
-    }
 
-    override fun onPause() {
-        if (Util.SDK_INT < 24) releaseExoPlayer()
-
-        super.onPause()
-    }
-
-    override fun onStop() {
-        if (Util.SDK_INT < 24) releaseExoPlayer()
-
-        super.onStop()
-    }
-
-    private fun releaseExoPlayer() {
-        if (exoPlayer != null) {
-            playOnReady = exoPlayer!!.playWhenReady
-            playbackPosition = exoPlayer!!.currentPosition
-            currentWindow = exoPlayer!!.currentWindowIndex
-
-            exoPlayer!!.release()
-            exoPlayer = null
-        }
-    }
 }

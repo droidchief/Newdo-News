@@ -29,32 +29,25 @@
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/guidelineMiddle"
-        app:layout_constraintTop_toBottomOf="@id/toolBar">
-
-
-        <com.google.android.exoplayer2.ui.PlayerView
-            android:id="@+id/storiesVideoView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-
-    </LinearLayout>
-
+    <TextView
+        android:id="@+id/label1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/trending"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guidelineMiddle" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/storiesRecyclerView"
+        android:id="@+id/trendingRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guidelineMiddle" />
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/label1"
+        android:padding="10dp" />
+
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineMiddle"
